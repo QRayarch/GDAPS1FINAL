@@ -98,7 +98,7 @@ namespace Final_Combat
                     break;
             }
             player.Update();
-            dungeon.RenderDungeon((int)player.PositionX - Floor.VIEW_AREA_WIDTH / 2, (int)player.PositionY - Floor.VIEW_AREA_HEIGHT / 2);
+            dungeon.RenderDungeon((int)player.PositionX - Floor.VIEW_AREA_WIDTH / 2, (int)player.PositionY - Floor.viewAreaHeight / 2);
 
         }
     }

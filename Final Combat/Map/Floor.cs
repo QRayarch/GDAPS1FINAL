@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Final_Combat;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace RougeMap.MapStuff
         public static Random random = new Random();
 
         public const int VIEW_AREA_WIDTH = 33;
-        public const int VIEW_AREA_HEIGHT = 21;
+        public int viewAreaHeight = 21;
 
         private const int MIN_ROOM_SIZE = 5;
         private const int MAX_ROOM_SIZE = 18;
@@ -22,7 +23,11 @@ namespace RougeMap.MapStuff
         public float charSize = 16;
         private DisplayChar[,] tiles;
         private List<Rectangle> rooms = new List<Rectangle>();
+        private Base[,] characters;
 
+        /// <summary>
+        /// Gets the width of this floor in number of characters wide.
+        /// </summary>
         public int FloorWidth 
         { 
             get 
@@ -30,6 +35,10 @@ namespace RougeMap.MapStuff
                 return tiles.GetLength(0); 
             } 
         }
+
+        /// <summary>
+        /// Gets the height of this floor in number of characters high.
+        /// </summary>
         public int FloorHeight 
         {
             get
@@ -40,12 +49,20 @@ namespace RougeMap.MapStuff
 
         private Font renderFont;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="viewport">The picturebox that will hold the rendered floor. Used to find the size of the characters to be rendered</param>
+        /// <param name="w">The width that this floor will have in number of characters.</param>
+        /// <param name="h">The height that this floor will have in number of chracetrs.</param>
         public Floor(PictureBox viewport, int w, int h)
         {
             tiles = new DisplayChar[w, h];
+            characters = new Base[w, h];
             GenerateLevel();
 
             charSize = viewport.Width / VIEW_AREA_WIDTH;
+            //viewAreaHeight = 
             renderFont = new Font(FontFamily.GenericMonospace, charSize);
         }
 
@@ -130,6 +147,34 @@ namespace RougeMap.MapStuff
             }
         }
 
+        public void Update()
+        {
+            for (int x = 0; x < characters.GetLength(0); x++)
+            {
+                for (int y = 0; y < characters.GetLength(1); y++)
+                {
+                    if (characters[x, y] != null)
+                    {
+                        Base tmpCharacter = characters[x, y];
+                        tmpCharacter.Update();
+
+                        int newPositionX = (int)(tmpCharacter.PositionX / charSize);
+                        int newPositionY = (int)(tmpCharacter.PositionY / charSize);
+                        if ((characters[newPositionX, newPositionY] != null && characters[newPositionX, newPositionY] != tmpCharacter) || tiles[newPositionX, newPositionY].CharToDisplay != '.')
+                        {
+                            tmpCharacter.PositionX = x * charSize;
+                            tmpCharacter.PositionY = y * charSize;
+                        }
+                        else
+                        {
+                            characters[x, y] = null;
+                            characters[newPositionX, newPositionY] = tmpCharacter;
+                        }
+                    }
+                }
+            }
+        }
+
         private int Clamp(int value, int min, int max)
         {
             return Math.Max(Math.Min(value, max), min);
@@ -142,9 +187,17 @@ namespace RougeMap.MapStuff
             graphics.Clear(Color.Black);
             for (int x = Clamp(cameraX, 0, FloorWidth); x < Clamp(cameraX + VIEW_AREA_WIDTH, 0, FloorWidth); x++)
             {
-                for (int y = Clamp(cameraY, 0, FloorHeight); y < Clamp(cameraY + VIEW_AREA_HEIGHT, 0, FloorHeight); y++)
+                for (int y = Clamp(cameraY, 0, FloorHeight); y < Clamp(cameraY + viewAreaHeight, 0, FloorHeight); y++)
                 {
-                    graphics.DrawString(tiles[x, y].CharToDisplay.ToString(), renderFont,tiles[x,y].BrushColor, (x-cameraX)*charSize, (y-cameraY)*charSize);
+                    if (characters[x, y] == null)
+                    {
+                        graphics.DrawString(tiles[x, y].CharToDisplay.ToString(), renderFont, tiles[x, y].BrushColor, (x - cameraX) * charSize, (y - cameraY) * charSize);
+                    }
+                    else
+                    {
+                        //TODO CHARS
+                        graphics.DrawString(tiles[x, y].CharToDisplay.ToString(), renderFont, tiles[x, y].BrushColor, (x - cameraX) * charSize, (y - cameraY) * charSize);
+                    }
                 }
             }
             graphics.Dispose();
