@@ -62,7 +62,7 @@ namespace RougeMap.MapStuff
             GenerateLevel();
 
             charSize = viewport.Width / VIEW_AREA_WIDTH;
-            //viewAreaHeight = 
+            viewAreaHeight = (int)(Math.Round(viewport.Height / charSize));
             renderFont = new Font(FontFamily.GenericMonospace, charSize);
         }
 
@@ -147,6 +147,16 @@ namespace RougeMap.MapStuff
             }
         }
 
+        public void AddChracter(Base character)
+        {
+            int characterPositionX = (int)(character.PositionX / charSize);
+            int characterPositionY = (int)(character.PositionY / charSize);
+            if (characters[characterPositionX, characterPositionY] == null)
+            {
+                characters[characterPositionX, characterPositionY] = character;
+            }
+        }
+
         public void Update()
         {
             for (int x = 0; x < characters.GetLength(0); x++)
@@ -156,19 +166,26 @@ namespace RougeMap.MapStuff
                     if (characters[x, y] != null)
                     {
                         Base tmpCharacter = characters[x, y];
-                        tmpCharacter.Update();
-
-                        int newPositionX = (int)(tmpCharacter.PositionX / charSize);
-                        int newPositionY = (int)(tmpCharacter.PositionY / charSize);
-                        if ((characters[newPositionX, newPositionY] != null && characters[newPositionX, newPositionY] != tmpCharacter) || tiles[newPositionX, newPositionY].CharToDisplay != '.')
+                        if (tmpCharacter.Alive)
                         {
-                            tmpCharacter.PositionX = x * charSize;
-                            tmpCharacter.PositionY = y * charSize;
+                            tmpCharacter.Update();
+
+                            int newPositionX = (int)(tmpCharacter.PositionX / charSize);
+                            int newPositionY = (int)(tmpCharacter.PositionY / charSize);
+                            if ((characters[newPositionX, newPositionY] != null && characters[newPositionX, newPositionY] != tmpCharacter) || tiles[newPositionX, newPositionY].CharToDisplay != '.')
+                            {
+                                tmpCharacter.PositionX = x * charSize;
+                                tmpCharacter.PositionY = y * charSize;
+                            }
+                            else
+                            {
+                                characters[x, y] = null;
+                                characters[newPositionX, newPositionY] = tmpCharacter;
+                            }
                         }
                         else
                         {
                             characters[x, y] = null;
-                            characters[newPositionX, newPositionY] = tmpCharacter;
                         }
                     }
                 }
@@ -195,8 +212,7 @@ namespace RougeMap.MapStuff
                     }
                     else
                     {
-                        //TODO CHARS
-                        graphics.DrawString(tiles[x, y].CharToDisplay.ToString(), renderFont, tiles[x, y].BrushColor, (x - cameraX) * charSize, (y - cameraY) * charSize);
+                        graphics.DrawString(characters[x, y].CharToDisplay.ToString(), renderFont, characters[x, y].BrushColor, (x - cameraX) * charSize, (y - cameraY) * charSize);
                     }
                 }
             }
