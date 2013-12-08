@@ -1,0 +1,9 @@
+\\banner.main.ad.rit.edu\students\cxb4846\IGMProfile\Documents\Visual Studio 2012\Projects\final stuff\Final Combat\Final Combat\bin\Debug\Final Combat.exe.config
+\\banner.main.ad.rit.edu\students\cxb4846\IGMProfile\Documents\Visual Studio 2012\Projects\final stuff\Final Combat\Final Combat\bin\Debug\Final Combat.exe
+\\banner.main.ad.rit.edu\students\cxb4846\IGMProfile\Documents\Visual Studio 2012\Projects\final stuff\Final Combat\Final Combat\bin\Debug\Final Combat.pdb
+\\banner.main.ad.rit.edu\students\cxb4846\IGMProfile\Documents\Visual Studio 2012\Projects\final stuff\Final Combat\Final Combat\obj\Debug\Final Combat.csprojResolveAssemblyReference.cache
+\\banner.main.ad.rit.edu\students\cxb4846\IGMProfile\Documents\Visual Studio 2012\Projects\final stuff\Final Combat\Final Combat\obj\Debug\Final_Combat.Form1.resources
+\\banner.main.ad.rit.edu\students\cxb4846\IGMProfile\Documents\Visual Studio 2012\Projects\final stuff\Final Combat\Final Combat\obj\Debug\Final_Combat.Properties.Resources.resources
+\\banner.main.ad.rit.edu\students\cxb4846\IGMProfile\Documents\Visual Studio 2012\Projects\final stuff\Final Combat\Final Combat\obj\Debug\Final Combat.csproj.GenerateResource.Cache
+\\banner.main.ad.rit.edu\students\cxb4846\IGMProfile\Documents\Visual Studio 2012\Projects\final stuff\Final Combat\Final Combat\obj\Debug\Final Combat.exe
+\\banner.main.ad.rit.edu\students\cxb4846\IGMProfile\Documents\Visual Studio 2012\Projects\final stuff\Final Combat\Final Combat\obj\Debug\Final Combat.pdb
