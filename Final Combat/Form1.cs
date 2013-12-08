@@ -34,6 +34,8 @@ namespace Final_Combat
       
         }
 
+        // Connects the attack button to the Attack method 
+        //Also prints out result of using the method
         private void attackButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Attack;
@@ -42,7 +44,8 @@ namespace Final_Combat
             playerStats.Text = player.ToString();
             enemyStats.Text = enemy1.ToString();
         }
-
+        //connects the defend button to the Defend method
+        //Also prints out result of using the method
         private void defendButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Defend;
@@ -51,7 +54,8 @@ namespace Final_Combat
             playerStats.Text = player.ToString();
             enemyStats.Text = enemy1.ToString();
         }
-         
+        //connects the Magic button to the Magic method
+        //Also prints out result of using the method
         private void magicButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Magic;
@@ -60,7 +64,8 @@ namespace Final_Combat
             playerStats.Text = player.ToString();
             enemyStats.Text = enemy1.ToString();
         }
-
+        //connects potion button to Potion method
+        //Also prints out result of using the method
         private void potionButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Potion;
@@ -80,20 +85,22 @@ namespace Final_Combat
 
         }
 
+        //changes player's location on the map by changing their corrdinates
+        //depending on which button is pressed
         private void KeyPressed(object sender, KeyEventArgs e)
         {
             Console.WriteLine("ajdlbgladfjbgvajl");
             switch(e.KeyCode) {
-                case Keys.W:
-                    player.VelocityY = - 1;
+                case Keys.W://moves player up
+                    player.VelocityY = -1;
                     break;
-                case Keys.D:
+                case Keys.D://moves player to the right
                     player.VelocityX = +1;
                     break;
-                case Keys.A:
+                case Keys.A://moves player down
                     player.VelocityX = -1;
                     break;
-                case Keys.S:
+                case Keys.S://moves plaer to the left
                     player.VelocityY = +1;
                     break;
             }

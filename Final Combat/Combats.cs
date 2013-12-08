@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Final_Combat
-{
+{   // stores options for the enemy ai to choose
     enum EInput
     {
         Attack = 1,
@@ -15,9 +15,8 @@ namespace Final_Combat
     }
     class Combats
     {
-
         static Random roll; 
-
+        
         public Combats()
         {
             roll = new Random();
@@ -31,70 +30,65 @@ namespace Final_Combat
         bool combat = true;
         string output = "";
 
-        //public void Fight()
-        //{
-        //    while (combat == true)
-        //    {
-        //
-        //        Battle(notDude.WCombatAI(notDude.Health));
-        //    }
-        //}
-
         public string Battle(EInput userInput, EInput enemyInput, Base player, Base enemy)
         {
             output = "";
             bool pFirst = (player.Dexterity >= enemy.Dexterity);
             if (combat == true)
             {
-                        if (pFirst == true)
-                        {
+                if (pFirst == true)
+                {
+                    if (player.Health > 0)
+                    {
+                        int playerOut = player.Combat(userInput, player, enemy);
 
-                            if (player.Health > 0)
-                            {
-                                int playerOut = player.Combat(userInput, player, enemy);
-                                if (userInput == EInput.Potion)
-                                    output = output + "\nYou heal for " + playerOut + ".";
-                                else if (userInput == EInput.Defend)
-                                    output = output + "\nYou defend for " + playerOut + ".";
-                                else
-                                    output = output + "\nYou deal " + playerOut + " damage.";
-                            }
-                            else
-                                combat = false;
-                            if (enemy.Health > 0)
-                            {
-                                int enemyOut = enemy.Combat(enemyInput, enemy, player);
-                                if (enemyInput == EInput.Potion)
-                                    output = output + "\nThey heal for " + enemyOut + ".";
-                                else
-                                    output = output + "\nThey deal " + enemyOut + " damage.";
-                            }
-                            else
-                                combat = false;
-                        }
-
+                        if (userInput == EInput.Potion)
+                            output = output + "\nYou heal for " + playerOut + ".";
+                        else if (userInput == EInput.Defend)
+                            output = output + "\nYou defend for " + playerOut + ".";
                         else
-                        {
-                            int enemyOut = enemy.Combat(userInput, enemy, player);
-                            if (enemyInput == EInput.Potion)
-                                output = output + "\nThey heal for " + enemyOut + ".";
-                            else if (enemyInput == EInput.Defend)
-                                output = output + "\nThey defend for " + enemyOut + ".";
-                            else
-                                output = output + "\nThey deal " + enemyOut + " damage.";
-                            if (player.Health > 0)
-                            {
-                                int playerOut = player.Combat(enemyInput, enemy, player);
-                                if (userInput == EInput.Potion)
-                                    output = output + "\nYou heal for " + playerOut + ".";
-                                else
-                                    output = output + "\nYou deal " + playerOut + " damage.";
-                            }
-                            else
-                                combat = false;
-                        }
+                            output = output + "\nYou deal " + playerOut + " damage.";
+                    }
+                    else
+                        combat = false;
 
+                    if (enemy.Health > 0)
+                    {
+                        int enemyOut = enemy.Combat(enemyInput, enemy, player);
+
+                        if (enemyInput == EInput.Potion)
+                            output = output + "\nThey heal for " + enemyOut + ".";
+                        else
+                            output = output + "\nThey deal " + enemyOut + " damage.";
+                    }
+                    else
+                        combat = false;
+                }
+
+                else
+                {
+                    int enemyOut = enemy.Combat(userInput, enemy, player);
+
+                    if (enemyInput == EInput.Potion)
+                        output = output + "\nThey heal for " + enemyOut + ".";
+                    else if (enemyInput == EInput.Defend)
+                        output = output + "\nThey defend for " + enemyOut + ".";
+                    else
+                        output = output + "\nThey deal " + enemyOut + " damage.";
+
+                    if (player.Health > 0)
+                    {
+                        int playerOut = player.Combat(enemyInput, enemy, player);
+                        if (userInput == EInput.Potion)
+                            output = output + "\nYou heal for " + playerOut + ".";
+                        else
+                            output = output + "\nYou deal " + playerOut + " damage.";
+                    }
+                    else
+                        combat = false;
+                }
             }
+
             if ((player.Health > 0) == true && (enemy.Health > 0) == false)
             {
                 player.Health += roll.Next(1, 11);

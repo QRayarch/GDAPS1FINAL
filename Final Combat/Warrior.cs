@@ -59,7 +59,7 @@ namespace Final_Combat
             health = health - damage;
             return health;
         }
-        // Allows user to make a choice during combat
+        //Calls methods to activate the user's choice during battle
         public override int Combat(EInput input, Base attacker, Base defender)
         {
             int output = 0;

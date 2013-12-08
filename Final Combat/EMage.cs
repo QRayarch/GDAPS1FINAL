@@ -88,11 +88,11 @@ namespace Final_Combat
             return enemyAction;
         }
         /// <summary>
-        /// 
+        ///Calls methods to activate the user's choice during battle
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="attacker"></param>
-        /// <param name="defender"></param>
+        /// <param name="input">the decision made by the enemy in the ai method</param>
+        /// <param name="attacker">the enemy</param>
+        /// <param name="defender">the player</param>
         /// <returns></returns>
         public override int Combat(EInput input, Base attacker, Base defender)
         {
