@@ -9,6 +9,7 @@ namespace RougeMap.MapStuff
 {
     class DisplayChar
     {
+        
         private char charToDisplay='.';
         public char CharToDisplay 
         {

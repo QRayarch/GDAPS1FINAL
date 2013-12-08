@@ -26,7 +26,7 @@ namespace Final_Combat
             dungeon.RenderDungeon(0, 0);
             EInput userInput;
             FIGHT = new Combats();
-            player = new Warrior(0, 0, 100, 10, 10, 10, 10, 0);
+            player = new Warrior(25, 25, 100, 10, 10, 10, 10, 0);
             enemy1 = new EWarrior(0, 0);
             playerStats.Text = player.ToString();
             enemyStats.Text = enemy1.ToString();
