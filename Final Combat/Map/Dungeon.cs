@@ -29,7 +29,7 @@ namespace RougeMap.MapStuff
 
         public Floor GetFloor(int index)
         {
-            if (index > 0 && index < floors.Count)
+            if (index > -1 && index < floors.Count)
             {
                 return floors[index];
             }

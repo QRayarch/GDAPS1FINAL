@@ -16,3 +16,12 @@ D:\Users\cxb4846\Project\Final Combat\obj\Debug\Final Combat.csprojResolveAssemb
 D:\Users\cxb4846\Project\Final Combat\obj\Debug\Final_Combat.Form1.resources
 D:\Users\cxb4846\Project\Final Combat\obj\Debug\Final_Combat.Properties.Resources.resources
 D:\Users\cxb4846\Project\Final Combat\obj\Debug\Final Combat.csproj.GenerateResource.Cache
+D:\Users\aee9149\Final Project\Final Combat\bin\Debug\Final Combat.exe.config
+D:\Users\aee9149\Final Project\Final Combat\obj\Debug\Final Combat.exe
+D:\Users\aee9149\Final Project\Final Combat\obj\Debug\Final Combat.pdb
+D:\Users\aee9149\Final Project\Final Combat\obj\Debug\Final Combat.csprojResolveAssemblyReference.cache
+D:\Users\aee9149\Final Project\Final Combat\obj\Debug\Final_Combat.Form1.resources
+D:\Users\aee9149\Final Project\Final Combat\obj\Debug\Final_Combat.Properties.Resources.resources
+D:\Users\aee9149\Final Project\Final Combat\obj\Debug\Final Combat.csproj.GenerateResource.Cache
+D:\Users\aee9149\Final Project\Final Combat\bin\Debug\Final Combat.exe
+D:\Users\aee9149\Final Project\Final Combat\bin\Debug\Final Combat.pdb

@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Final_Combat
 {
-    class Warrior : Base//inherits from Base
+    class Warrior : Character//inherits from Base
     {//passes in variables and sets _positionX and _positionY
         public Warrior(int _positionX, int _positionY, int _health, int _strength, int _constitution,
-           int _dexterity, int _wisdom, int _defense)
-            : base(_positionX, _positionY, _health, _strength, _constitution, _dexterity, _wisdom, _defense)
-       {
-       }
+           int _dexterity, int _wisdom, int _defense, Brush color)
+            : base (_positionX, _positionY, _health, _strength, 
+                _constitution, _dexterity, _wisdom, _defense, 'W', color)
+            {
+            }
 
-        public Warrior(int _positionX, int _positionY)
-            : base(_positionX, _positionY, 30, 5, 5, 10, 5, 0)
+        public Warrior(int _positionX, int _positionY, Brush color)
+            : base(_positionX, _positionY, 30, 5, 5, 10, 5, 0, 'W', color)
         {
         }
+
+        public Warrior(int _positionX, int _positionY)
+            : this(_positionX, _positionY, Brushes.PowderBlue)
+        {
+        }
+
         //simulates attacking
         public override int Attack()
         {
@@ -59,8 +67,8 @@ namespace Final_Combat
             health = health - damage;
             return health;
         }
-        // Allows user to make a choice during combat
-        public override int Combat(EInput input, Base attacker, Base defender)
+        //Calls methods to activate the user's choice during battle
+        public override int Combat(EInput input, Character attacker, Character defender)
         {
             int output = 0;
             switch (input)
