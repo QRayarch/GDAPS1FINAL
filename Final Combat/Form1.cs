@@ -26,7 +26,7 @@ namespace Final_Combat
             dungeon.RenderDungeon(0, 0);
             EInput userInput;
             FIGHT = new Combats();
-            player = new Warrior(0, 0, 100, 10, 10, 10, 10, 0);
+            player = new Warrior(25, 25, 100, 10, 10, 10, 10, 0);
             enemy1 = new EWarrior(0, 0);
             FIGHT.Combat = true;
             playerStats.Text = player.ToString();
@@ -131,7 +131,7 @@ namespace Final_Combat
                     break;
             }
             player.Update();
-            dungeon.RenderDungeon((int)player.PositionX - Floor.VIEW_AREA_WIDTH / 2, (int)player.PositionY - Floor.VIEW_AREA_HEIGHT / 2);
+            dungeon.RenderDungeon((int)player.PositionX - Floor.VIEW_AREA_WIDTH / 2, (int)player.PositionY - Floor.viewAreaHeight / 2);
 
         }
     }

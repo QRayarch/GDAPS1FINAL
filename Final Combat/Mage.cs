@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Final_Combat
 {
-    class Mage : Base//inherits from Base
+    class Mage : Base
+        //inherits from Base
     {   //passes in variables and sets _positionX and _positionY
         public Mage(int _positionX, int _positionY, int _health, int _strength, int _constitution,
            int _dexterity, int _wisdom, int _defense)
@@ -62,7 +63,7 @@ namespace Final_Combat
             health = health - damage;
             return health;
         }
-
+        // Allows user to make a choice during combat
         public override int Combat(EInput input, Base attacker, Base defender)
         {
             int output = 0;

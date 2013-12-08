@@ -13,42 +13,56 @@ namespace Final_Combat
            : this (_positionX, _positionY)
        {
        }
-
+        /// <summary>
+        /// sets values to variables 
+        /// </summary>
+        /// <param name="_positionX">X coordinate of player's position</param>
+        /// <param name="_positionY">Y coordinate of player's position</param>
         public Rogue(int _positionX, int _positionY)
             : base(_positionX, _positionY, 9, 6, 7, 10, 7, 0)
         {
         }
-
+        //simulates attacking
         public override int Attack()
         {
             damage = strength + randRoll.Next(1, 7);
             return damage;
         }
-
+        //simulates magic
         public override int Magic()
         {
             damage = wisdom + randRoll.Next(1, 7);
             return damage;
         }
-
+        /// <summary>
+        /// simulates defence
+        /// </summary>
+        /// <param name="_damage">defends against damage passed in from opponent</param>
+        /// <returns>total damage after calculations</returns>
         public override int Defend()
         {
             defense = defense + randRoll.Next(1, 11);
             return defense;
         }
-
+        /// <summary>
+        /// simulates using a potion
+        /// </summary>
+        /// <returns>health after use</returns>
         public override int Potion()
         {
             health = health + randRoll.Next(1, 9);
             return health;
         }
-
+        /// <summary>
+        /// changes health according to damage dealt
+        /// </summary>
+        /// <returns>remaining health</returns>
         public override int ChangeHealth()
         {
             health = health - damage;
             return health;
         }
-
+        // Allows user to make a choice during combat
         public override int Combat(EInput input, Base attacker, Base defender)
         {
             int output = 0;

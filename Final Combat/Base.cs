@@ -1,12 +1,14 @@
-﻿using System;
+﻿using RougeMap.MapStuff;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Final_Combat
 {
-    abstract class Base
+    abstract class Base : DisplayChar 
     {
         //basic fields needed for movement and stats
        protected float positionX;
@@ -23,7 +25,7 @@ namespace Final_Combat
        protected int defense;
 
        protected bool alive;
-        public bool Alive{get{return alive;}set{alive = value;}}
+       public bool Alive{get{return alive;}set{alive = value;}}
 
        protected int damage;
     // random used throughout the game
@@ -32,6 +34,7 @@ namespace Final_Combat
 
         //evaluates player position
        public Base(int _positionX, int _positionY)
+           : base ('a', Brushes.Aquamarine)
        {
            positionX = (int)_positionX;
            positionY = (int)_positionY;
@@ -95,12 +98,14 @@ namespace Final_Combat
        public float PositionX
        {
            get { return positionX; }
+           set { positionX = value; }
            
        }
 
        public float PositionY
        {
            get { return positionY; }
+           set { positionY = value; }
        }
 
        public int Defense
