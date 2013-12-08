@@ -33,7 +33,7 @@ namespace Final_Combat
 
         string output = "";
 
-        public string Battle(EInput userInput, EInput enemyInput, Base player, Base enemy)
+        public string Battle(EInput userInput, EInput enemyInput, Character player, Character enemy)
         {
             output = "";
             bool pFirst = (player.Dexterity >= enemy.Dexterity);

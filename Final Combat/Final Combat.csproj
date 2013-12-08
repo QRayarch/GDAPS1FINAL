@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base.cs" />
+    <Compile Include="Character.cs" />
     <Compile Include="Combats.cs" />
     <Compile Include="EMage.cs" />
     <Compile Include="ERogue.cs" />

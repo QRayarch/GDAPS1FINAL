@@ -23,7 +23,7 @@ namespace RougeMap.MapStuff
         public float charSize = 16;
         private DisplayChar[,] tiles;
         private List<Rectangle> rooms = new List<Rectangle>();
-        private Base[,] characters;
+        private Character[,] characters;
 
         /// <summary>
         /// Gets the width of this floor in number of characters wide.
@@ -58,7 +58,7 @@ namespace RougeMap.MapStuff
         public Floor(PictureBox viewport, int w, int h)
         {
             tiles = new DisplayChar[w, h];
-            characters = new Base[w, h];
+            characters = new Character[w, h];
             GenerateLevel();
 
             charSize = viewport.Width / VIEW_AREA_WIDTH;
@@ -147,10 +147,10 @@ namespace RougeMap.MapStuff
             }
         }
 
-        public void AddChracter(Base character)
+        public void AddChracter(Character character)
         {
-            int characterPositionX = (int)(character.PositionX / charSize);
-            int characterPositionY = (int)(character.PositionY / charSize);
+            int characterPositionX = (int)(character.PositionX);
+            int characterPositionY = (int)(character.PositionY);
             if (characters[characterPositionX, characterPositionY] == null)
             {
                 characters[characterPositionX, characterPositionY] = character;
@@ -165,17 +165,16 @@ namespace RougeMap.MapStuff
                 {
                     if (characters[x, y] != null)
                     {
-                        Base tmpCharacter = characters[x, y];
+                        Character tmpCharacter = characters[x, y];
                         if (tmpCharacter.Alive)
                         {
                             tmpCharacter.Update();
-
-                            int newPositionX = (int)(tmpCharacter.PositionX / charSize);
-                            int newPositionY = (int)(tmpCharacter.PositionY / charSize);
+                            int newPositionX = (int)(tmpCharacter.PositionX );
+                            int newPositionY = (int)(tmpCharacter.PositionY );
                             if ((characters[newPositionX, newPositionY] != null && characters[newPositionX, newPositionY] != tmpCharacter) || tiles[newPositionX, newPositionY].CharToDisplay != '.')
                             {
-                                tmpCharacter.PositionX = x * charSize;
-                                tmpCharacter.PositionY = y * charSize;
+                                tmpCharacter.PositionX = x;
+                                tmpCharacter.PositionY = y;
                             }
                             else
                             {
@@ -199,6 +198,8 @@ namespace RougeMap.MapStuff
 
         public Bitmap RenderFloor(PictureBox viewPort, int cameraX, int cameraY)
         {
+            cameraX -= VIEW_AREA_WIDTH / 2;
+            cameraY -= viewAreaHeight / 2;
             Bitmap bitmap = new Bitmap(viewPort.Width, viewPort.Height);
             Graphics graphics = Graphics.FromImage(bitmap);
             graphics.Clear(Color.Black);

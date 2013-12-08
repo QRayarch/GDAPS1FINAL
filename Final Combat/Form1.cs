@@ -23,10 +23,11 @@ namespace Final_Combat
             KeyDown += KeyPressed;
             InitializeComponent();
             dungeon = new Dungeon(map);
-            dungeon.RenderDungeon(0, 0);
             EInput userInput;
             FIGHT = new Combats();
-            player = new Warrior(25, 25, 100, 10, 10, 10, 10, 0);
+            player = new Warrior(25, 25, 100, 10, 10, 10, 10, 0, Brushes.PowderBlue);
+            dungeon.GetFloor(0).AddChracter(player);
+            dungeon.RenderDungeon((int)player.PositionX, (int)player.PositionY);
             enemy1 = new EWarrior(0, 0);
             FIGHT.Combat = true;
             playerStats.Text = player.ToString();
@@ -122,7 +123,6 @@ namespace Final_Combat
         //depending on which button is pressed
         private void KeyPressed(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("ajdlbgladfjbgvajl");
             switch(e.KeyCode) {
                 case Keys.W://moves player up
                     player.VelocityY = -1;
@@ -137,9 +137,8 @@ namespace Final_Combat
                     player.VelocityY = +1;
                     break;
             }
-            player.Update();
-            dungeon.RenderDungeon((int)player.PositionX - Floor.VIEW_AREA_WIDTH / 2, (int)player.PositionY - Floor.viewAreaHeight / 2);
-
+            dungeon.Update();
+            dungeon.RenderDungeon((int)player.PositionX , (int)player.PositionY);
         }
     }
 }

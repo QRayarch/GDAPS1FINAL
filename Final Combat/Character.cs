@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Final_Combat
 {
-    abstract class Base : DisplayChar 
+    abstract class Character : DisplayChar 
     {
        //basic fields needed for movement and stats
        protected float positionX;
@@ -24,7 +24,7 @@ namespace Final_Combat
        protected int wisdom;
        protected int defense;
 
-       protected bool alive;
+       protected bool alive = true;
        public bool Alive{get{return alive;}set{alive = value;}}
 
        protected int damage;
@@ -33,16 +33,16 @@ namespace Final_Combat
        
 
        //evaluates player position
-       public Base(int _positionX, int _positionY)
-           : base ('a', Brushes.Aquamarine)
+       public Character(int _positionX, int _positionY, char enemy, Brush color)
+           : base (enemy, color)
        {
            positionX = (int)_positionX;
            positionY = (int)_positionY;  
        }
        //constructor that sets keywords for variables
-       public Base(int _positionX, int _positionY, int _health, int _strength, int _constitution,
-           int _dexterity, int _wisdom, int defense)
-           : this (_positionX, _positionY)
+       public Character(int _positionX, int _positionY, int _health, int _strength, int _constitution,
+           int _dexterity, int _wisdom, int defense, char enemy, Brush color)
+           : this (_positionX, _positionY, enemy, color)
        {
            positionX = (int)_positionX;
            positionY = (int)_positionY;
@@ -111,12 +111,14 @@ namespace Final_Combat
        public abstract int Defend();
        public abstract int Potion();
        public abstract int ChangeHealth();
-       public abstract int Combat(EInput input, Base attacker, Base defender);
+       public abstract int Combat(EInput input, Character attacker, Character defender);
        
        public void Update()
        {   //moves them around with their velocity
            positionX = positionX + velocityX;
            positionY = positionY + velocityY;
+           velocityX = 0;
+           velocityY = 0;
        }
        /// <summary>
        /// makes a string of the player's or enemy's stats to be printed 
