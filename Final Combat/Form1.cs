@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace Final_Combat
 {
+    
     public partial class Form1 : Form
     {
         Combats FIGHT;
         Warrior player;
         EWarrior enemy1;
         Dungeon dungeon; 
-
         public Form1()
         {
             KeyDown += KeyPressed;
@@ -28,10 +28,42 @@ namespace Final_Combat
             FIGHT = new Combats();
             player = new Warrior(0, 0, 100, 10, 10, 10, 10, 0);
             enemy1 = new EWarrior(0, 0);
+            FIGHT.Combat = true;
             playerStats.Text = player.ToString();
+            CombatVisCheck();
+        }
+
+        private void CombatVisCheck()
+        {
+            if (player.Health > 0 && enemy1.Health > 0)
+                CombatVisibility(true);
+            else
+            {
+                CombatVisibility(false);
+                if (player.Health > 0)
+                    MessageBox.Show("You have won the combat!", "Victory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                    MessageBox.Show("You have died!", "Defeat", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CombatVisibility(bool combat)
+        {
+            attackButton.Visible = combat;
+            defendButton.Visible = combat;
+            magicButton.Visible = combat;
+            potionButton.Visible = combat;
+            combatText.Visible = combat;
+            enemyStats.Visible = combat;
+            enemyStatsLabel.Visible = combat;
+            attackButton.Enabled = combat;
+            defendButton.Enabled = combat;
+            magicButton.Enabled = combat;
+            potionButton.Enabled = combat;
+            combatText.Enabled = combat;
+            enemyStats.Enabled = combat;
             enemyStats.Text = enemy1.ToString();
-            combatText.Text += "What do?";
-      
+            combatText.Text += "You have entered combat! What do you do?";
         }
 
         private void attackButton_Click(object sender, EventArgs e)
@@ -41,6 +73,7 @@ namespace Final_Combat
             combatText.Text = combatText.Text + output;
             playerStats.Text = player.ToString();
             enemyStats.Text = enemy1.ToString();
+            CombatVisCheck();
         }
 
         private void defendButton_Click(object sender, EventArgs e)

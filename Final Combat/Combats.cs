@@ -13,6 +13,7 @@ namespace Final_Combat
         Magic = 3,
         Potion = 4
     }
+    
     class Combats
     {
 
@@ -28,7 +29,9 @@ namespace Final_Combat
             return (health > 0);
         }
 
-        bool combat = true;
+        private bool combat = false;
+        public bool Combat { get { return combat; } set { combat = value; } }
+
         string output = "";
 
         //public void Fight()
