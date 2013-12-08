@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Final_Combat
         /// <param name="_positionX">X coordinate of player's position</param>
         /// <param name="_positionY">Y coordinate of player's position</param>
         public EWarrior(int _positionX, int _positionY)
-            : base(_positionX, _positionY, 30, 7, 6, 4, 5, 0)
+            : base(_positionX, _positionY, 30, 7, 6, 4, 5, 0, Brushes.PeachPuff)
         {
         }
         /// <summary>
@@ -79,8 +80,14 @@ namespace Final_Combat
             }
             return enemyAction;
         }
-
-        public override int Combat(EInput input, Base attacker, Base defender)
+        /// <summary>
+        ///Calls methods to activate the user's choice during battle
+        /// </summary>
+        /// <param name="input">the decision made by the enemy in the ai method</param>
+        /// <param name="attacker">the enemy</param>
+        /// <param name="defender">the player</param>
+        /// <returns></returns>
+        public override int Combat(EInput input, Character attacker, Character defender)
         {
             int output = 0;
             switch (input)

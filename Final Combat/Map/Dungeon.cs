@@ -42,7 +42,7 @@ namespace RougeMap.MapStuff
         /// <returns>The floor if index is in bounds, else null.</returns>
         public Floor GetFloor(int index)
         {
-            if (index > 0 && index < floors.Count)
+            if (index > -1 && index < floors.Count)
             {
                 return floors[index];
             }

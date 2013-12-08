@@ -11,29 +11,64 @@ using System.Windows.Forms;
 
 namespace Final_Combat
 {
+    
     public partial class Form1 : Form
     {
         Combats FIGHT;
         Warrior player;
         EWarrior enemy1;
         Dungeon dungeon; 
-
         public Form1()
         {
             KeyDown += KeyPressed;
             InitializeComponent();
             dungeon = new Dungeon(map);
-            dungeon.RenderDungeon(0, 0);
             EInput userInput;
             FIGHT = new Combats();
-            player = new Warrior(25, 25, 100, 10, 10, 10, 10, 0);
+            player = new Warrior(25, 25, 100, 10, 10, 10, 10, 0, Brushes.PowderBlue);
+            dungeon.GetFloor(0).AddChracter(player);
+            dungeon.RenderDungeon((int)player.PositionX, (int)player.PositionY);
             enemy1 = new EWarrior(0, 0);
+            FIGHT.Combat = true;
             playerStats.Text = player.ToString();
-            enemyStats.Text = enemy1.ToString();
-            combatText.Text += "What do?";
-      
+            CombatVisCheck();
         }
 
+        private void CombatVisCheck()
+        {
+            if (player.Health > 0 && enemy1.Health > 0)
+                CombatVisibility(true);
+            else
+            {
+                CombatVisibility(false);
+                if (player.Health > 0)
+                    MessageBox.Show("You have won the combat!", "Victory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                    MessageBox.Show("You have died!", "Defeat", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CombatVisibility(bool combat)
+        {
+            attackButton.Visible = combat;
+            defendButton.Visible = combat;
+            magicButton.Visible = combat;
+            potionButton.Visible = combat;
+            combatText.Visible = combat;
+            enemyStats.Visible = combat;
+            enemyStatsLabel.Visible = combat;
+            attackButton.Enabled = combat;
+            defendButton.Enabled = combat;
+            magicButton.Enabled = combat;
+            potionButton.Enabled = combat;
+            combatText.Enabled = combat;
+            enemyStats.Enabled = combat;
+            enemyStats.Text = enemy1.ToString();
+            combatText.Text += "You have entered combat! What do you do?";
+        }
+
+        // Connects the attack button to the Attack method 
+        //Also prints out result of using the method
         private void attackButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Attack;
@@ -41,8 +76,10 @@ namespace Final_Combat
             combatText.Text = combatText.Text + output;
             playerStats.Text = player.ToString();
             enemyStats.Text = enemy1.ToString();
+            CombatVisCheck();
         }
-
+        //connects the defend button to the Defend method
+        //Also prints out result of using the method
         private void defendButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Defend;
@@ -51,7 +88,8 @@ namespace Final_Combat
             playerStats.Text = player.ToString();
             enemyStats.Text = enemy1.ToString();
         }
-         
+        //connects the Magic button to the Magic method
+        //Also prints out result of using the method
         private void magicButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Magic;
@@ -60,7 +98,8 @@ namespace Final_Combat
             playerStats.Text = player.ToString();
             enemyStats.Text = enemy1.ToString();
         }
-
+        //connects potion button to Potion method
+        //Also prints out result of using the method
         private void potionButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Potion;
@@ -80,26 +119,26 @@ namespace Final_Combat
 
         }
 
+        //changes player's location on the map by changing their corrdinates
+        //depending on which button is pressed
         private void KeyPressed(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("ajdlbgladfjbgvajl");
             switch(e.KeyCode) {
-                case Keys.W:
-                    player.VelocityY = - 1;
+                case Keys.W://moves player up
+                    player.VelocityY = -1;
                     break;
-                case Keys.D:
+                case Keys.D://moves player to the right
                     player.VelocityX = +1;
                     break;
-                case Keys.A:
+                case Keys.A://moves player down
                     player.VelocityX = -1;
                     break;
-                case Keys.S:
+                case Keys.S://moves plaer to the left
                     player.VelocityY = +1;
                     break;
             }
-            player.Update();
-            dungeon.RenderDungeon((int)player.PositionX - Floor.VIEW_AREA_WIDTH / 2, (int)player.PositionY - Floor.viewAreaHeight / 2);
-
+            dungeon.Update();
+            dungeon.RenderDungeon((int)player.PositionX , (int)player.PositionY);
         }
     }
 }
