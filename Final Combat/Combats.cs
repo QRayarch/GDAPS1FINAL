@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Final_Combat
 {   // stores options for the enemy ai to choose
-    enum EInput
+    public enum EInput
     {
         Attack = 1,
         Defend = 2,

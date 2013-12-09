@@ -47,6 +47,7 @@
             this.combatText.Location = new System.Drawing.Point(574, 353);
             this.combatText.Name = "combatText";
             this.combatText.ReadOnly = true;
+            this.combatText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.combatText.Size = new System.Drawing.Size(175, 204);
             this.combatText.TabIndex = 0;
             this.combatText.Text = "";

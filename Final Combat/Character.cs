@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Final_Combat
 {
-    abstract class Character : DisplayChar 
+    public abstract class Character : DisplayChar 
     {
        //basic fields needed for movement and stats
        protected float positionX;
@@ -24,8 +24,16 @@ namespace Final_Combat
        protected int wisdom;
        protected int defense;
 
-       protected bool alive = true;
-       public bool Alive{get{return alive;}set{alive = value;}}
+       public bool Alive{get{return health>0;}}
+
+       protected bool isEnemy = false;
+       public bool IsEnemy
+       {
+           get
+           {
+               return isEnemy;
+           }
+       }
 
        protected int damage;
        //random used throughout the game
@@ -114,11 +122,37 @@ namespace Final_Combat
        public abstract int Combat(EInput input, Character attacker, Character defender);
        
        public void Update()
-       {   //moves them around with their velocity
+       {
+           if (isEnemy && Form1.Player!= null)
+           {
+               Movement((int)Form1.Player.PositionX, (int)Form1.Player.PositionY);
+           }
+           //moves them around with their velocity
            positionX = positionX + velocityX;
            positionY = positionY + velocityY;
            velocityX = 0;
            velocityY = 0;
+       }
+
+       /// <summary>
+       /// gives enemy ai for movement. Compares enemy position to user
+       /// and makes a decision to get closer to the player 
+       /// </summary>
+       /// <param name="_positionX">enemy's X coordinate</param>
+       /// <param name="_positionY">enemy's Y coordinate</param>
+       public void Movement(int _positionX, int _positionY)
+       {
+           if (_positionX > this.positionX)
+               velocityX = 1;
+
+           else if (_positionX < this.positionX)
+               velocityX = -1;
+
+           if (_positionY > this.positionY)
+               velocityY = 1;
+
+           else if (_positionY < this.positionY)
+               velocityY = -1;
        }
        /// <summary>
        /// makes a string of the player's or enemy's stats to be printed 

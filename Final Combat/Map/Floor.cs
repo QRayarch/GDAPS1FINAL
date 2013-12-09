@@ -68,7 +68,7 @@ namespace RougeMap.MapStuff
 
         private void GenerateLevel()
         {
-            FillSpaceWithCharacter(0, 0, FloorWidth, FloorHeight, 'W', Brushes.Gray);
+            FillSpaceWithCharacter(0, 0, FloorWidth, FloorHeight, 'O', Brushes.Gray);
             for (int r = 0; r < random.Next(6, 20); r++)
             {
                 EmptyRoomSpace(CreateRoom());
@@ -88,6 +88,37 @@ namespace RougeMap.MapStuff
             tiles[random.Next(upStairsRoom.X + 1, upStairsRoom.X + upStairsRoom.Width), random.Next(upStairsRoom.Y + 1, upStairsRoom.Y + upStairsRoom.Height)] = new DisplayChar('=', Brushes.Brown);
             Rectangle downStairsRoom = rooms[random.Next(0, rooms.Count)];
             tiles[random.Next(downStairsRoom.X + 1, downStairsRoom.X + downStairsRoom.Width), random.Next(downStairsRoom.Y + 1, downStairsRoom.Y + downStairsRoom.Height)] = new DisplayChar('=', Brushes.Brown);
+
+            GenerateEnemies();
+        }
+
+        private void GenerateEnemies()
+        {
+            for (int e = 0; e < 20 + Dungeon.FloorsVisited/3 + random.Next(0, Dungeon.FloorsVisited); e++)
+            {
+                GenerateEnemyInRoom(rooms[random.Next(0, rooms.Count)]);
+            }
+        }
+
+        private void GenerateEnemyInRoom(Rectangle room)
+        {
+            int x = random.Next(room.X + 1, room.X + room.Width);
+            int y = random.Next(room.Y + 1, room.Y + room.Height);
+            if (tiles[x, y].CharToDisplay == '.' && characters[x, y] == null)
+            {
+                switch (random.Next(0, 3))
+                {
+                    case 0:
+                        AddChracter(new EMage(x, y));
+                        break;
+                    case 1:
+                        AddChracter(new ERogue(x, y));
+                        break;
+                    case 2:
+                        AddChracter(new EWarrior(x, y));
+                        break;
+                }
+            }
         }
 
         private Rectangle CreateRoom()
@@ -175,6 +206,10 @@ namespace RougeMap.MapStuff
                             {
                                 tmpCharacter.PositionX = x;
                                 tmpCharacter.PositionY = y;
+                                if (tmpCharacter.IsEnemy && characters[newPositionX, newPositionY] == Form1.Player)
+                                {
+                                    Form1.EnemyJoin(tmpCharacter);
+                                }
                             }
                             else
                             {

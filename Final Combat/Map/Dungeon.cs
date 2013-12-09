@@ -9,6 +9,14 @@ namespace RougeMap.MapStuff
 {
     class Dungeon
     {
+        private static int floorsVisited = 0;
+        public static int FloorsVisited
+        {
+            get
+            {
+                return floorsVisited;
+            }
+        }
         private List<Floor> floors = new List<Floor>();
         private int currentFloor = 0;
         private PictureBox viewport;

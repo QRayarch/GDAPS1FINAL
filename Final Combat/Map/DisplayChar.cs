@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RougeMap.MapStuff
 {
-    class DisplayChar
+    public class DisplayChar
     {
         private char charToDisplay='.';
         /// <summary>

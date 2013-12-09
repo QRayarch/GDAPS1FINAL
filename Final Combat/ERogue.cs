@@ -17,26 +17,7 @@ namespace Final_Combat
         public ERogue(int _positionX, int _positionY)
             : base(_positionX, _positionY, 10, 7, 6, 9, 5, 0, Brushes.Maroon)
         {
-        }
-        /// <summary>
-        /// gives enemy ai for movement. Compares enemy position to user
-        /// and makes a decision to get closer to the player 
-        /// </summary>
-        /// <param name="_positionX">enemy's X coordinate</param>
-        /// <param name="_positionY">enemy's Y coordinate</param>
-        public void Movement(int _positionX, int _positionY)
-        {
-            if (_positionX > this.positionX)
-                velocityX = 1;
-
-            else if (_positionX < this.positionX)
-                velocityX = -1;
-
-            if (_positionX > this.positionX)
-                velocityX = 1;
-
-            else if (_positionY < this.positionY)
-                velocityX = -1;
+            isEnemy = true;
         }
         //simulates attacking
         public override int Attack()
@@ -65,7 +46,7 @@ namespace Final_Combat
         /// </summary>
         /// <param name="health">the enemy's health stat</param>
         /// <returns>the choice of action the enemy makes</returns>
-        public EInput RCombatAI(int health)
+        public EInput RCombatAI()
         {
             EInput enemyAction;
             if (health > 6)

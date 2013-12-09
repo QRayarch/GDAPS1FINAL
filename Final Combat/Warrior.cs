@@ -64,7 +64,10 @@ namespace Final_Combat
         /// <returns>remaining health</returns>
         public override int ChangeHealth()
         {
-            health = health - damage;
+            if (damage > 0)
+            {
+                health = health - damage;
+            }
             return health;
         }
         //Calls methods to activate the user's choice during battle
@@ -75,9 +78,11 @@ namespace Final_Combat
             {
                 case EInput.Attack:
                     output = attacker.Attack();
-                    defender.Health -= (output - defender.Defense);
                     if (defender.Defense < output)
+                    {
                         defender.Defense = 0;
+                        defender.Health -= Math.Max((output - defender.Defense), 0);
+                    }
                     else
                         defender.Defense -= output;
                     break;
