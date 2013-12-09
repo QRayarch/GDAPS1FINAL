@@ -12,6 +12,9 @@ namespace RougeMap.MapStuff
     class Dungeon
     {
         private static int floorsVisited = 0;
+        /// <summary>
+        /// Gets the number of floors visited.
+        /// </summary>
         public static int FloorsVisited
         {
             get
@@ -59,6 +62,11 @@ namespace RougeMap.MapStuff
             return null;
         }
 
+        /// <summary>
+        /// Moves a chracter up a floor, if it exists, otherwise create a new
+        /// floor.
+        /// </summary>
+        /// <param name="player">The chracter to move up the floor.</param>
         public void MovePlayerUpFloor(Character player)
         {
             currentFloor++;
@@ -77,6 +85,10 @@ namespace RougeMap.MapStuff
             MovePlayerToFloor(floorTravelingTo.StairsDownLocation, floorTravelingTo, player);
         }
 
+        /// <summary>
+        /// Moves a character down a floor if it exists, otherwise create a new floor.
+        /// </summary>
+        /// <param name="player">The character to move down a floor.</param>
         public void MovePlayerDownFloor(Character player)
         {
             currentFloor--;
@@ -96,6 +108,13 @@ namespace RougeMap.MapStuff
             MovePlayerToFloor(floorTravelingTo.StairsUpLocation, floorTravelingTo, player);
         }
 
+        /// <summary>
+        /// Handles addeing the chracter to the new floor, and sets the positon of the character to the 
+        /// location of the stairs.
+        /// </summary>
+        /// <param name="stairsLocation">The location of the stairs where the player will end up at.</param>
+        /// <param name="floorTravelingTo">The new floor the chracter will be on.</param>
+        /// <param name="player">The character to move to the new floor.</param>
         private void MovePlayerToFloor(Point stairsLocation, Floor floorTravelingTo, Character player)
         {
             floorTravelingTo.AddChracter(player);

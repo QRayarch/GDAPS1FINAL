@@ -99,7 +99,7 @@ namespace RougeMap.MapStuff
         private void GenerateLevel()
         {
             FillSpaceWithCharacter(0, 0, FloorWidth, FloorHeight, 'O', Brushes.Gray);
-            for (int r = 0; r < random.Next(6, 20)+Dungeon.FloorsVisited/5; r++)
+            for (int r = 0; r < random.Next(6, 20)+Dungeon.FloorsVisited/4; r++)
             {
                 EmptyRoomSpace(CreateRoom());
             }
@@ -115,11 +115,11 @@ namespace RougeMap.MapStuff
             }
 
             Rectangle upStairsRoom = rooms[random.Next(0, rooms.Count/4)];
-            stairsUpLocation = new Point(random.Next(upStairsRoom.X + 1, upStairsRoom.X + upStairsRoom.Width), random.Next(upStairsRoom.Y + 1, upStairsRoom.Y + upStairsRoom.Height));
+            stairsUpLocation = new Point(random.Next(upStairsRoom.X + 1, upStairsRoom.X + upStairsRoom.Width), random.Next(upStairsRoom.Y + 1, upStairsRoom.Y + upStairsRoom.Height - 1));
             tiles[stairsUpLocation.X, stairsUpLocation.Y] = new DisplayChar('u', Brushes.Gold);
 
             Rectangle downStairsRoom = rooms[random.Next(rooms.Count / 4, rooms.Count)];
-            stairsDownLocation = new Point(random.Next(downStairsRoom.X + 1, downStairsRoom.X + downStairsRoom.Width), random.Next(downStairsRoom.Y + 1, downStairsRoom.Y + downStairsRoom.Height));
+            stairsDownLocation = new Point(random.Next(downStairsRoom.X + 1, downStairsRoom.X + downStairsRoom.Width), random.Next(downStairsRoom.Y + 1, downStairsRoom.Y + downStairsRoom.Height - 1));
             tiles[stairsDownLocation.X, stairsDownLocation.Y] = new DisplayChar('d', Brushes.Gold);
 
             GenerateEnemies();
