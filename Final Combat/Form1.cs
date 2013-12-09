@@ -12,9 +12,11 @@ using System.Windows.Forms;
 namespace Final_Combat
 {
     public delegate void EnemyJoinCombat(Character enemy);
+   
 
     public partial class Form1 : Form
     {
+        private bool submit = false; //if the player is done making their character
         Combats FIGHT;
         private static Character player;
         public static Character Player
@@ -46,12 +48,32 @@ namespace Final_Combat
             dungeon = new Dungeon(map);
             EInput userInput;
             FIGHT = new Combats();
-            player = new Warrior(25, 25, 100, 10, 10, 10, 10, 0, Brushes.PowderBlue);
+            if (submit == true)
+            {
+                int pStrengthInput = int.Parse(textBoxSAdd.ToString());
+                int pConstitutionInput = int.Parse(textBoxCAdd.ToString());
+                int pDexterityInput = int.Parse(textBoxDAdd.ToString());
+                int pWisdomInput = int.Parse(textBoxWAdd.ToString());
+                int pStatsInputTotal = pStrengthInput + pConstitutionInput + pDexterityInput + pWisdomInput;
+                if (pStatsInputTotal == 12)
+                {
+                    int pStrength = 4 + pStrengthInput;
+                    int pConstitution = 4 + pConstitutionInput;
+                    int pDexterity = 4 + pDexterityInput;
+                    int pWisdom = 4 + pWisdomInput;
+                    player = new Warrior(25, 25, (pConstitution * 10), pStrength, pConstitution, pDexterity, pWisdom, 0, Brushes.PowderBlue);
+                    characterCreation.Visible = false;
+                }
+                else
+                    submit = false;
+            }
+            
+            playerStats.Text = player.ToString();
             dungeon.GetFloor(0).AddChracter(player);
             dungeon.RenderDungeon((int)player.PositionX, (int)player.PositionY);
             //enemyPlayerFighting = new EWarrior(0, 0);
             FIGHT.Combat = false;
-            playerStats.Text = player.ToString();
+            
             //CombatVisCheck();
         }
 
@@ -201,5 +223,11 @@ namespace Final_Combat
                 dungeon.RenderDungeon((int)player.PositionX, (int)player.PositionY);
             }
         }
+
+        private void buttonSubmit_Click(object sender, EventArgs e)
+        {
+            submit = true;
+        }
     }
 }
+
