@@ -11,63 +11,177 @@ using System.Windows.Forms;
 
 namespace Final_Combat
 {
+    public delegate void EnemyJoinCombat(Character enemy);
+   
+
     public partial class Form1 : Form
     {
+        private bool submit = false; //if the player is done making their character
         Combats FIGHT;
-        Warrior player;
-        EWarrior enemy1;
-        Dungeon dungeon; 
+        private static Character player;
+        public static Character Player
+        {
+            get
+            {
+                return player;
+            }
+        }
+        private static Character enemy;
+        public static void EnemyJoin(Character newEnemy)
+        {
+            if (enemy != null && !enemy.Alive)
+            {
+                enemy = null;
+            }
+            else if (enemy == null)
+            {
+                enemy = newEnemy;
+            }
+        }
+        public static event EnemyJoinCombat enemyJoinedCombat = EnemyJoin;
 
+        Dungeon dungeon; 
         public Form1()
         {
             KeyDown += KeyPressed;
             InitializeComponent();
             dungeon = new Dungeon(map);
-            dungeon.RenderDungeon(0, 0);
             EInput userInput;
             FIGHT = new Combats();
-            player = new Warrior(0, 0, 100, 10, 10, 10, 10, 0);
-            enemy1 = new EWarrior(0, 0);
+            if (submit == true)
+            {
+                int pStrengthInput = int.Parse(textBoxSAdd.ToString());
+                int pConstitutionInput = int.Parse(textBoxCAdd.ToString());
+                int pDexterityInput = int.Parse(textBoxDAdd.ToString());
+                int pWisdomInput = int.Parse(textBoxWAdd.ToString());
+                int pStatsInputTotal = pStrengthInput + pConstitutionInput + pDexterityInput + pWisdomInput;
+                if (pStatsInputTotal == 12)
+                {
+                    int pStrength = 4 + pStrengthInput;
+                    int pConstitution = 4 + pConstitutionInput;
+                    int pDexterity = 4 + pDexterityInput;
+                    int pWisdom = 4 + pWisdomInput;
+                    player = new Warrior(25, 25, (pConstitution * 10), pStrength, pConstitution, pDexterity, pWisdom, 0, Brushes.PowderBlue);
+                    characterCreation.Visible = false;
+                }
+                else
+                    submit = false;
+            }
+            
             playerStats.Text = player.ToString();
-            enemyStats.Text = enemy1.ToString();
-            combatText.Text += "What do?";
-      
+            dungeon.GetFloor(0).AddChracter(player);
+            dungeon.RenderDungeon((int)player.PositionX, (int)player.PositionY);
+            //enemyPlayerFighting = new EWarrior(0, 0);
+            FIGHT.Combat = false;
+            
+            //CombatVisCheck();
         }
 
+        private void CombatVisCheck()
+        {
+            if (enemy != null && player.Health > 0 && enemy.Health > 0)
+            {
+                CombatVisibility(true);
+                FIGHT.Combat = true;
+            }
+            else
+            {
+                CombatVisibility(false);
+                if (player.Health > 0 && enemy != null)
+                {
+                    enemy = null;
+                    MessageBox.Show("You have won the combat!", "Victory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (enemy != null && enemy.Health > 0)
+                {
+                    MessageBox.Show("You have died!", "Defeat", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Close();
+                }
+            }
+        }
+
+        private void CombatVisibility(bool combat)
+        {
+            attackButton.Visible = combat;
+            defendButton.Visible = combat;
+            magicButton.Visible = combat;
+            potionButton.Visible = combat;
+            combatText.Visible = combat;
+            enemyStats.Visible = combat;
+            enemyStatsLabel.Visible = combat;
+            attackButton.Enabled = combat;
+            defendButton.Enabled = combat;
+            magicButton.Enabled = combat;
+            if (combat != combatText.Enabled)
+            {
+                combatText.Text = "You have entered combat! What do you do?";
+            }
+            potionButton.Enabled = combat;
+            combatText.Enabled = combat;
+            enemyStats.Enabled = combat;
+            enemyStats.Text = enemy == null?"":enemy.ToString();
+        }
+
+        // Connects the attack button to the Attack method 
+        //Also prints out result of using the method
         private void attackButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Attack;
-            string output = FIGHT.Battle(userInput, enemy1.WCombatAI(enemy1.Health), player, enemy1);
+            string output = FIGHT.Battle(userInput, PickEnemyMove(), player, enemy);
             combatText.Text = combatText.Text + output;
             playerStats.Text = player.ToString();
-            enemyStats.Text = enemy1.ToString();
+            enemyStats.Text = enemy.ToString();
+            CombatVisCheck();
         }
-
+        //connects the defend button to the Defend method
+        //Also prints out result of using the method
         private void defendButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Defend;
-            string output = FIGHT.Battle(userInput, enemy1.WCombatAI(enemy1.Health), player, enemy1);
+            string output = FIGHT.Battle(userInput, PickEnemyMove(), player, enemy);
             combatText.Text = combatText.Text + output;
             playerStats.Text = player.ToString();
-            enemyStats.Text = enemy1.ToString();
+            enemyStats.Text = enemy.ToString();
+            CombatVisCheck();
         }
-         
+        //connects the Magic button to the Magic method
+        //Also prints out result of using the method
         private void magicButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Magic;
-            string output = FIGHT.Battle(userInput, enemy1.WCombatAI(enemy1.Health), player, enemy1);
+            string output = FIGHT.Battle(userInput, PickEnemyMove(), player, enemy);
             combatText.Text = combatText.Text + output;
             playerStats.Text = player.ToString();
-            enemyStats.Text = enemy1.ToString();
+            enemyStats.Text = enemy.ToString();
+            CombatVisCheck();
         }
-
+        //connects potion button to Potion method
+        //Also prints out result of using the method
         private void potionButton_Click(object sender, EventArgs e)
         {
             EInput userInput = EInput.Potion;
-            string output = FIGHT.Battle(userInput, enemy1.WCombatAI(enemy1.Health), player, enemy1);
+            string output = FIGHT.Battle(userInput, PickEnemyMove(), player, enemy);
             combatText.Text = combatText.Text + output;
             playerStats.Text = player.ToString();
-            enemyStats.Text = enemy1.ToString();
+            enemyStats.Text = enemy.ToString();
+            CombatVisCheck();
+        }
+
+        private EInput PickEnemyMove()
+        {
+            if (enemy is EMage)
+            {
+                return (enemy as EMage).MCombatAI();
+            }
+            if (enemy is ERogue)
+            {
+                return (enemy as ERogue).RCombatAI();
+            }
+            if (enemy is EWarrior)
+            {
+                return (enemy as EWarrior).WCombatAI();
+            }
+            return EInput.Defend;
         }
 
         private void combatText_TextChanged(object sender, EventArgs e)
@@ -80,26 +194,40 @@ namespace Final_Combat
 
         }
 
+        //changes player's location on the map by changing their corrdinates
+        //depending on which button is pressed
         private void KeyPressed(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("ajdlbgladfjbgvajl");
-            switch(e.KeyCode) {
-                case Keys.W:
-                    player.VelocityY = - 1;
-                    break;
-                case Keys.D:
-                    player.VelocityX = +1;
-                    break;
-                case Keys.A:
-                    player.VelocityX = -1;
-                    break;
-                case Keys.S:
-                    player.VelocityY = +1;
-                    break;
+            if (enemy != null)
+            {
+                CombatVisCheck();
             }
-            player.Update();
-            dungeon.RenderDungeon((int)player.PositionX - Floor.VIEW_AREA_WIDTH / 2, (int)player.PositionY - Floor.VIEW_AREA_HEIGHT / 2);
+            if (!FIGHT.Combat)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.W://moves player up
+                        player.VelocityY = -1;
+                        break;
+                    case Keys.D://moves player to the right
+                        player.VelocityX = +1;
+                        break;
+                    case Keys.A://moves player down
+                        player.VelocityX = -1;
+                        break;
+                    case Keys.S://moves plaer to the left
+                        player.VelocityY = +1;
+                        break;
+                }
+                dungeon.Update();
+                dungeon.RenderDungeon((int)player.PositionX, (int)player.PositionY);
+            }
+        }
 
+        private void buttonSubmit_Click(object sender, EventArgs e)
+        {
+            submit = true;
         }
     }
 }
+

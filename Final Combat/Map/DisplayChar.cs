@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace RougeMap.MapStuff
 {
-    class DisplayChar
+    public class DisplayChar
     {
         private char charToDisplay='.';
+        /// <summary>
+        /// Gets the chracter to display when rendering.
+        /// </summary>
         public char CharToDisplay 
         {
             get
@@ -19,6 +22,9 @@ namespace RougeMap.MapStuff
         }
 
         private Brush brushColor;
+        /// <summary>
+        /// Gets the brush for rendering.
+        /// </summary>
         public Brush BrushColor
         {
             get
@@ -27,16 +33,22 @@ namespace RougeMap.MapStuff
             }
         }
 
+        /// <summary>
+        /// Creates a renderable character with the given and a color of white.
+        /// </summary>
+        /// <param name="charToDisplay">The chracter to display when rendering.</param>
         public DisplayChar(char charToDisplay)
         {
             this.charToDisplay = charToDisplay;
+            brushColor = Brushes.White;
         }
 
         /// <summary>
-        /// Pass in Brushes.COLOR_NAME 
+        /// Creates a renderable character with the given chracter and color.
+        /// Pass in Brushes.COLOR_NAME. 
         /// </summary>
-        /// <param name="charToDisplay"></param>
-        /// <param name="brushColor"></param>
+        /// <param name="charToDisplay">The chracter to display when rendering.</param>
+        /// <param name="brushColor">The color to display the character in when rendering.</param>
         public DisplayChar(char charToDisplay, Brush brushColor)
             : this(charToDisplay)
         {

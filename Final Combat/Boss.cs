@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace Final_Combat
 {
-    class EWarrior : Warrior
+    class Boss : Mage
     {
         /// <summary>
         /// sets values to variables 
         /// </summary>
         /// <param name="_positionX">X coordinate of player's position</param>
         /// <param name="_positionY">Y coordinate of player's position</param>
-        public EWarrior(int _positionX, int _positionY)
-            : base(_positionX, _positionY, 30, 7, 6, 4, 5, 0, Brushes.PeachPuff)
+        public Boss(int _positionX, int _positionY)
+            : base(_positionX, _positionY, 10, 7, 6, 9, 5, 0, Brushes.LavenderBlush)
         {
             isEnemy = true;
         }
         //simulates attacking
         public override int Attack()
         {
-            damage = strength + randRoll.Next(1, 11);
+            damage = strength + randRoll.Next(1, 5);
             return damage;
         }
         //simulates magic
         public override int Magic()
         {
-            damage = wisdom + randRoll.Next(1, 5);
+            damage = wisdom + randRoll.Next(1, 11);
             return damage;
         }
         /// <summary>
@@ -41,23 +41,43 @@ namespace Final_Combat
             defense = defense + randRoll.Next(1, 11);
             return defense;
         }
+
+        public override int Potion()
+        {
+            health = health + randRoll.Next(10, 21);
+            return health;
+        }
+
+        public override int ChangeHealth()
+        {
+            health = health - damage;
+            return health;
+        }
         /// <summary>
         /// Enemy ai for making decisions during battle 
         /// </summary>
         /// <param name="health">the enemy's health stat</param>
         /// <returns>the choice of action the enemy makes</returns>
-        public EInput WCombatAI()
+        public EInput MCombatAI()
         {
             EInput enemyAction;
-            if (health > 5)
-                enemyAction = EInput.Attack;
-            else
+            if (health > 8)
+                enemyAction = EInput.Magic;
+            else if (health > 5 && health <= 8)
             {
                 int decision = randRoll.Next(1, 4);
                 if (decision == 1)
                     enemyAction = EInput.Defend;
                 else
-                    enemyAction = EInput.Attack;
+                    enemyAction = EInput.Magic;
+            }
+            else
+            {
+                int decision = randRoll.Next(1, 4);
+                if (decision == 1)
+                    enemyAction = EInput.Potion;
+                else
+                    enemyAction = EInput.Defend;
             }
             return enemyAction;
         }
@@ -75,11 +95,9 @@ namespace Final_Combat
             {
                 case EInput.Attack:
                     output = attacker.Attack();
+                    defender.Health -= (output - defender.Defense);
                     if (defender.Defense < output)
-                    {
                         defender.Defense = 0;
-                        defender.Health -= Math.Max((output - defender.Defense), 0);
-                    }
                     else
                         defender.Defense -= output;
                     break;
@@ -88,13 +106,7 @@ namespace Final_Combat
                     break;
                 case EInput.Magic:
                     output = attacker.Magic();
-                    if (defender.Defense < output)
-                    {
-                        defender.Defense = 0;
-                        defender.Health -= Math.Max((output - defender.Defense), 0);
-                    }
-                    else
-                        defender.Defense -= output;
+                    defender.Health -= (output - defender.Defense);
                     break;
                 case EInput.Potion:
                     output = attacker.Potion();
