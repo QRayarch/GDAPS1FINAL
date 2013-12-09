@@ -91,7 +91,13 @@ namespace Final_Combat
                     break;
                 case EInput.Magic:
                     output = attacker.Magic();
-                    defender.Health -= (output - defender.Defense);
+                    if (defender.Defense < output)
+                    {
+                        defender.Defense = 0;
+                        defender.Health -= Math.Max((output - defender.Defense), 0);
+                    }
+                    else
+                        defender.Defense -= output;
                     break;
                 case EInput.Potion: 
                     output = attacker.Potion();
