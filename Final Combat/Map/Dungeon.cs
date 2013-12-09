@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Final_Combat;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +31,7 @@ namespace RougeMap.MapStuff
         public Dungeon(PictureBox viewport)
         {
             this.viewport = viewport;
-            floors.Add(new Floor(viewport, 50,50));
+            floors.Add(new Floor(this, viewport, 50,50));
         }
 
         /// <summary>
@@ -55,6 +57,51 @@ namespace RougeMap.MapStuff
                 return floors[index];
             }
             return null;
+        }
+
+        public void MovePlayerUpFloor(Character player)
+        {
+            currentFloor++;
+            Floor floorTravelingTo;
+            if (currentFloor >= floors.Count)
+            {
+                floorTravelingTo = new Floor(this, viewport, 50 + floorsVisited, 50 + floorsVisited);
+                floors.Add(floorTravelingTo);
+                floorsVisited++;
+            }
+            else
+            {
+                Console.WriteLine(currentFloor);
+                floorTravelingTo = floors[currentFloor];
+            }
+            MovePlayerToFloor(floorTravelingTo.StairsDownLocation, floorTravelingTo, player);
+        }
+
+        public void MovePlayerDownFloor(Character player)
+        {
+            currentFloor--;
+            Floor floorTravelingTo;
+            if (currentFloor < 0)
+            {
+                floorTravelingTo = new Floor(this, viewport, 50 + floorsVisited, 50 + floorsVisited);
+                floors.Insert(0,floorTravelingTo);
+                floorsVisited++;
+                currentFloor = 0;
+            }
+            else
+            {
+                Console.WriteLine(currentFloor);
+                floorTravelingTo = floors[currentFloor];
+            }
+            MovePlayerToFloor(floorTravelingTo.StairsUpLocation, floorTravelingTo, player);
+        }
+
+        private void MovePlayerToFloor(Point stairsLocation, Floor floorTravelingTo, Character player)
+        {
+            floorTravelingTo.AddChracter(player);
+            player.PositionX = stairsLocation.X;
+            player.PositionY = stairsLocation.Y + 1;
+            RenderDungeon((int)player.PositionX, (int)player.PositionY);
         }
 
         /// <summary>
