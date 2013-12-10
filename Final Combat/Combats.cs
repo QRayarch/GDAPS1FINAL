@@ -43,7 +43,7 @@ namespace Final_Combat
                 {
                     if (player.Health > 0)
                     {
-                        int playerOut = player.Combat(userInput, player, enemy);
+                        int playerOut = player.Combat(userInput, enemy);
 
                         if (userInput == EInput.Potion)
                             output = output + "\nYou heal for " + playerOut + ".";
@@ -57,7 +57,7 @@ namespace Final_Combat
 
                     if (enemy.Health > 0)
                     {
-                        int enemyOut = enemy.Combat(enemyInput, enemy, player);
+                        int enemyOut = enemy.Combat(enemyInput, player);
 
                         if (enemyInput == EInput.Potion)
                             output = output + "\nThey heal for " + enemyOut + ".";
@@ -70,7 +70,7 @@ namespace Final_Combat
 
                 else
                 {
-                    int enemyOut = enemy.Combat(userInput, enemy, player);
+                    int enemyOut = enemy.Combat(userInput, enemy);//WHAT? but works?
 
                     if (enemyInput == EInput.Potion)
                         output = output + "\nThey heal for " + enemyOut + ".";
@@ -81,9 +81,11 @@ namespace Final_Combat
 
                     if (player.Health > 0)
                     {
-                        int playerOut = player.Combat(enemyInput, enemy, player);
+                        int playerOut = player.Combat(enemyInput, enemy);
                         if (userInput == EInput.Potion)
                             output = output + "\nYou heal for " + playerOut + ".";
+                        else if (userInput == EInput.Defend)
+                            output = output + "\nYou defend for " + playerOut + ".";
                         else
                             output = output + "\nYou deal " + playerOut + " damage.";
                     }

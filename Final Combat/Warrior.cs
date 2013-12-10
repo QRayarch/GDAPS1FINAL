@@ -17,7 +17,7 @@ namespace Final_Combat
             }
 
         public Warrior(int _positionX, int _positionY, Brush color)
-            : base(_positionX, _positionY, 30, 5, 5, 10, 5, 0, 'W', color)
+            : base(_positionX, _positionY, 15, 5, 5, 10, 5, 0, 'W', color)
         {
         }
 
@@ -58,52 +58,40 @@ namespace Final_Combat
             health = health + healing;
             return healing;
         }
-        /// <summary>
-        /// changes health according to damage dealt
-        /// </summary>
-        /// <returns>remaining health</returns>
-        public override int ChangeHealth()
-        {
-            if (damage > 0)
-            {
-                health = health - damage;
-            }
-            return health;
-        }
         //Calls methods to activate the user's choice during battle
-        public override int Combat(EInput input, Character attacker, Character defender)
-        {
-            int output = 0;
-            switch (input)
-            {
-                case EInput.Attack:
-                    output = attacker.Attack();
-                    if (defender.Defense < output)
-                    {
-                        defender.Defense = 0;
-                        defender.Health -= Math.Max((output - defender.Defense), 0);
-                    }
-                    else
-                        defender.Defense -= output;
-                    break;
-                case EInput.Defend:
-                    output = attacker.Defend();
-                    break;
-                case EInput.Magic:
-                    output = attacker.Magic();
-                    if (defender.Defense < output)
-                    {
-                        defender.Defense = 0;
-                        defender.Health -= Math.Max((output - defender.Defense), 0);
-                    }
-                    else
-                        defender.Defense -= output;
-                    break;
-                case EInput.Potion: 
-                    output = attacker.Potion();
-                    break;
-            }
-            return output;
-        } 
+        //public override int Combat(EInput input, Character attacker, Character defender)
+        //{
+        //    int output = 0;
+        //    switch (input)
+        //    {
+        //        case EInput.Attack:
+        //            output = attacker.Attack();
+        //            if (defender.Defense < output)
+        //            {
+        //                defender.Defense = 0;
+        //                defender.Health -= Math.Max((output - defender.Defense), 0);
+        //            }
+        //            else
+        //                defender.Defense -= output;
+        //            break;
+        //        case EInput.Defend:
+        //            output = attacker.Defend();
+        //            break;
+        //        case EInput.Magic:
+        //            output = attacker.Magic();
+        //            if (defender.Defense < output)
+        //            {
+        //                defender.Defense = 0;
+        //                defender.Health -= Math.Max((output - defender.Defense), 0);
+        //            }
+        //            else
+        //                defender.Defense -= output;
+        //            break;
+        //        case EInput.Potion: 
+        //            output = attacker.Potion();
+        //            break;
+        //    }
+        //    return output;
+        //} 
     }
 }

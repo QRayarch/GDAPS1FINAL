@@ -60,50 +60,7 @@ namespace Final_Combat
            health = health + randRoll.Next(1, 9);
            return health;
        }
-       /// <summary>
-       /// changes health according to damage dealt
-       /// </summary>
-       /// <returns>remaining health</returns>
-       public override int ChangeHealth()
-       {
-           health = health - damage;
-           return health;
-       }
        // Allows user to make a choice during combat
-       public override int Combat(EInput input, Character attacker, Character defender)
-       {
-           int output = 0;
-           switch (input)
-           {
-               case EInput.Attack:
-                   output = attacker.Attack();
-                   if (defender.Defense < output)
-                   {
-                       defender.Defense = 0;
-                       defender.Health -= Math.Max((output - defender.Defense), 0);
-                   }
-                   else
-                       defender.Defense -= output;
-                   break;
-               case EInput.Defend:
-                   output = 0;
-                   break;
-               case EInput.Magic:
-                   output = attacker.Magic();
-                   if (defender.Defense < output)
-                   {
-                       defender.Defense = 0;
-                       defender.Health -= Math.Max((output - defender.Defense), 0);
-                   }
-                   else
-                       defender.Defense -= output;
-                   break;
-               case EInput.Potion:
-                   output = attacker.Potion();
-                   attacker.Health += output;
-                   break;
-           }
-           return output;
-       }
+       
     }
 }

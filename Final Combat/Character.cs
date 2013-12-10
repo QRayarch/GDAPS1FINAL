@@ -75,7 +75,10 @@ namespace Final_Combat
        public int Constitution
        {
            get { return constitution; }
-           set { constitution = value; }
+           set { constitution = value;
+           health = constitution * 10;
+           }
+
        }
        public int Dexterity
        {
@@ -118,14 +121,47 @@ namespace Final_Combat
        public abstract int Magic();
        public abstract int Defend();
        public abstract int Potion();
-       public abstract int ChangeHealth();
-       public abstract int Combat(EInput input, Character attacker, Character defender);
+       public int Combat(EInput input, Character defender)
+       {
+           int output = 0;
+           Console.WriteLine((this == defender));
+           switch (input)
+           {
+               case EInput.Attack:
+                   output = Attack();
+                   if (defender.Defense < output)
+                   {
+                       defender.Defense = 0;
+                       defender.Health -= Math.Max((output - defender.Defense), 0);
+                   }
+                   else
+                       defender.Defense -= output;
+                   break;
+               case EInput.Defend:
+                   output = Defend();
+                   break;
+               case EInput.Magic:
+                   output = Magic();
+                   if (defender.Defense < output)
+                   {
+                       defender.Defense = 0;
+                       defender.Health -= Math.Max((output - defender.Defense), 0);
+                   }
+                   else
+                       defender.Defense -= output;
+                   break;
+               case EInput.Potion:
+                   output = Potion();
+                   break;
+           }
+           return output;
+       } 
        
        public void Update()
        {
-           if (isEnemy && Form1.Player!= null)
+           if (isEnemy)
            {
-               Movement((int)Form1.Player.PositionX, (int)Form1.Player.PositionY);
+               Movement((int)(Form1.Player.PositionX), (int)(Form1.Player.PositionY));
            }
            //moves them around with their velocity
            positionX = positionX + velocityX;

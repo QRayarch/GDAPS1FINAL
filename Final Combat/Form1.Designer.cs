@@ -39,6 +39,7 @@
             this.playerStatsLabel = new System.Windows.Forms.Label();
             this.enemyStatsLabel = new System.Windows.Forms.Label();
             this.characterCreation = new System.Windows.Forms.Panel();
+            this.buttonSubmit = new System.Windows.Forms.Button();
             this.textBoxStatExplain = new System.Windows.Forms.TextBox();
             this.textBoxWAdd = new System.Windows.Forms.TextBox();
             this.textBoxDAdd = new System.Windows.Forms.TextBox();
@@ -49,7 +50,6 @@
             this.labelD = new System.Windows.Forms.Label();
             this.labelC = new System.Windows.Forms.Label();
             this.labelS = new System.Windows.Forms.Label();
-            this.buttonSubmit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.map)).BeginInit();
             this.characterCreation.SuspendLayout();
             this.SuspendLayout();
@@ -187,6 +187,17 @@
             this.characterCreation.Size = new System.Drawing.Size(554, 446);
             this.characterCreation.TabIndex = 10;
             // 
+            // buttonSubmit
+            // 
+            this.buttonSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSubmit.Location = new System.Drawing.Point(239, 343);
+            this.buttonSubmit.Name = "buttonSubmit";
+            this.buttonSubmit.Size = new System.Drawing.Size(139, 59);
+            this.buttonSubmit.TabIndex = 14;
+            this.buttonSubmit.Text = "Submit";
+            this.buttonSubmit.UseVisualStyleBackColor = true;
+            this.buttonSubmit.Click += new System.EventHandler(this.buttonSubmit_Click);
+            // 
             // textBoxStatExplain
             // 
             this.textBoxStatExplain.Location = new System.Drawing.Point(203, 65);
@@ -202,6 +213,7 @@
             this.textBoxWAdd.Name = "textBoxWAdd";
             this.textBoxWAdd.Size = new System.Drawing.Size(50, 20);
             this.textBoxWAdd.TabIndex = 8;
+            this.textBoxWAdd.Text = "0";
             // 
             // textBoxDAdd
             // 
@@ -209,6 +221,7 @@
             this.textBoxDAdd.Name = "textBoxDAdd";
             this.textBoxDAdd.Size = new System.Drawing.Size(50, 20);
             this.textBoxDAdd.TabIndex = 7;
+            this.textBoxDAdd.Text = "0";
             // 
             // textBoxCAdd
             // 
@@ -216,6 +229,7 @@
             this.textBoxCAdd.Name = "textBoxCAdd";
             this.textBoxCAdd.Size = new System.Drawing.Size(50, 20);
             this.textBoxCAdd.TabIndex = 6;
+            this.textBoxCAdd.Text = "0";
             // 
             // textBoxSAdd
             // 
@@ -223,6 +237,7 @@
             this.textBoxSAdd.Name = "textBoxSAdd";
             this.textBoxSAdd.Size = new System.Drawing.Size(50, 20);
             this.textBoxSAdd.TabIndex = 5;
+            this.textBoxSAdd.Text = "0";
             // 
             // textBox1
             // 
@@ -274,17 +289,6 @@
             this.labelS.Size = new System.Drawing.Size(71, 20);
             this.labelS.TabIndex = 0;
             this.labelS.Text = "Strength";
-            // 
-            // buttonSubmit
-            // 
-            this.buttonSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSubmit.Location = new System.Drawing.Point(239, 343);
-            this.buttonSubmit.Name = "buttonSubmit";
-            this.buttonSubmit.Size = new System.Drawing.Size(139, 59);
-            this.buttonSubmit.TabIndex = 14;
-            this.buttonSubmit.Text = "Submit";
-            this.buttonSubmit.UseVisualStyleBackColor = true;
-            this.buttonSubmit.Click += new System.EventHandler(this.buttonSubmit_Click);
             // 
             // Form1
             // 

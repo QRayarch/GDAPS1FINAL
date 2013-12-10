@@ -48,11 +48,6 @@ namespace Final_Combat
             return health;
         }
 
-        public override int ChangeHealth()
-        {
-            health = health - damage;
-            return health;
-        }
         /// <summary>
         /// Enemy ai for making decisions during battle 
         /// </summary>
@@ -88,32 +83,6 @@ namespace Final_Combat
         /// <param name="attacker">the enemy</param>
         /// <param name="defender">the player</param>
         /// <returns></returns>
-        public override int Combat(EInput input, Character attacker, Character defender)
-        {
-            int output = 0;
-            switch (input)
-            {
-                case EInput.Attack:
-                    output = attacker.Attack();
-                    defender.Health -= (output - defender.Defense);
-                    if (defender.Defense < output)
-                        defender.Defense = 0;
-                    else
-                        defender.Defense -= output;
-                    break;
-                case EInput.Defend:
-                    output = 0;
-                    break;
-                case EInput.Magic:
-                    output = attacker.Magic();
-                    defender.Health -= (output - defender.Defense);
-                    break;
-                case EInput.Potion:
-                    output = attacker.Potion();
-                    attacker.Health += output;
-                    break;
-            }
-            return output;
-        }
+        
     }
 }

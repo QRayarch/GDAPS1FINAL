@@ -15,7 +15,7 @@ namespace Final_Combat
         /// <param name="_positionX">X coordinate of player's position</param>
         /// <param name="_positionY">Y coordinate of player's position</param>
         public EMage(int _positionX, int _positionY)
-            : base (_positionX, _positionY, 10, 7, 6, 9, 5, 0, Brushes.Purple)
+            : base(_positionX, _positionY, 10, 4, 4, 4, 4, 4, Brushes.Purple)
         {
             isEnemy = true;
         }
@@ -76,41 +76,7 @@ namespace Final_Combat
         /// <param name="attacker">the enemy</param>
         /// <param name="defender">the player</param>
         /// <returns></returns>
-        public override int Combat(EInput input, Character attacker, Character defender)
-        {
-            int output = 0;
-            switch (input)
-            {
-                case EInput.Attack:
-                    output = attacker.Attack();
-                    if (defender.Defense < output)
-                    {
-                        defender.Defense = 0;
-                        defender.Health -= Math.Max((output - defender.Defense), 0);
-                    }
-                    else
-                        defender.Defense -= output;
-                    break;
-                case EInput.Defend:
-                    output = 0;
-                    break;
-                case EInput.Magic:
-                    output = attacker.Magic();
-                    if (defender.Defense < output)
-                    {
-                        defender.Defense = 0;
-                        defender.Health -= Math.Max((output - defender.Defense), 0);
-                    }
-                    else
-                        defender.Defense -= output;
-                    break;
-                case EInput.Potion:
-                    output = attacker.Potion();
-                    attacker.Health += output;
-                    break;
-            }
-            return output;
-        }
+        
     }
 }
 

@@ -12,11 +12,9 @@ using System.Windows.Forms;
 namespace Final_Combat
 {
     public delegate void EnemyJoinCombat(Character enemy);
-   
 
     public partial class Form1 : Form
     {
-        private bool submit = false; //if the player is done making their character
         Combats FIGHT;
         private static Character player;
         public static Character Player
@@ -43,38 +41,10 @@ namespace Final_Combat
         Dungeon dungeon; 
         public Form1()
         {
-            KeyDown += KeyPressed;
+            
             InitializeComponent();
             dungeon = new Dungeon(map);
-            EInput userInput;
-            FIGHT = new Combats();
-            if (submit == true)
-            {
-                int pStrengthInput = int.Parse(textBoxSAdd.ToString());
-                int pConstitutionInput = int.Parse(textBoxCAdd.ToString());
-                int pDexterityInput = int.Parse(textBoxDAdd.ToString());
-                int pWisdomInput = int.Parse(textBoxWAdd.ToString());
-                int pStatsInputTotal = pStrengthInput + pConstitutionInput + pDexterityInput + pWisdomInput;
-                if (pStatsInputTotal == 12)
-                {
-                    int pStrength = 4 + pStrengthInput;
-                    int pConstitution = 4 + pConstitutionInput;
-                    int pDexterity = 4 + pDexterityInput;
-                    int pWisdom = 4 + pWisdomInput;
-                    player = new Warrior(25, 25, (pConstitution * 10), pStrength, pConstitution, pDexterity, pWisdom, 0, Brushes.PowderBlue);
-                    characterCreation.Visible = false;
-                }
-                else
-                    submit = false;
-            }
-            
-            playerStats.Text = player.ToString();
-            dungeon.GetFloor(0).AddChracter(player);
-            dungeon.RenderDungeon((int)player.PositionX, (int)player.PositionY);
-            //enemyPlayerFighting = new EWarrior(0, 0);
-            FIGHT.Combat = false;
-            
-            //CombatVisCheck();
+            player = new Warrior(dungeon.GetFloor(0).StairsDownLocation.X, dungeon.GetFloor(0).StairsDownLocation.X+1, 10, 0, 0, 0, 0, 0, Brushes.PowderBlue);
         }
 
         private void CombatVisCheck()
@@ -90,6 +60,8 @@ namespace Final_Combat
                 if (player.Health > 0 && enemy != null)
                 {
                     enemy = null;
+                    FIGHT.Combat = false;
+
                     MessageBox.Show("You have won the combat!", "Victory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else if (enemy != null && enemy.Health > 0)
@@ -226,8 +198,38 @@ namespace Final_Combat
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            submit = true;
+            int pStrengthInput = int.Parse(textBoxSAdd.Text);
+            int pConstitutionInput = int.Parse(textBoxCAdd.Text);
+            int pDexterityInput = int.Parse(textBoxDAdd.Text);
+            int pWisdomInput = int.Parse(textBoxWAdd.Text);
+            int pStatsInputTotal = pStrengthInput + pConstitutionInput + pDexterityInput + pWisdomInput;
+            if (pStatsInputTotal == 12)
+            {
+                FIGHT = new Combats();
+                FIGHT.Combat = false;
+                KeyDown += KeyPressed;
+                
+
+                int pStrength = 4 + pStrengthInput;
+                int pConstitution = 4 + pConstitutionInput;
+                int pDexterity = 4 + pDexterityInput;
+                int pWisdom = 4 + pWisdomInput;
+               
+                //SET PLAYR STATS!
+                player.Strength = pStrength;
+                player.Dexterity = pDexterity;
+                player.Constitution = pConstitution;
+                player.Wisdom = pWisdom;
+
+                characterCreation.Enabled = false;
+                characterCreation.Visible = false;
+
+                playerStats.Text = player.ToString();
+                dungeon.GetFloor(0).AddChracter(player);
+                dungeon.RenderDungeon((int)player.PositionX, (int)player.PositionY);
+            }
         }
     }
 }
+
 
