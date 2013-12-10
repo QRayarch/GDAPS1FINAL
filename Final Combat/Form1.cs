@@ -13,7 +13,7 @@ namespace Final_Combat
 {
     public delegate void EnemyJoinCombat(Character enemy);
 
-    public partial class Form1 : Form
+    public partial class FinalCombat : Form
     {
         Combats FIGHT;
         private static Character player;
@@ -25,6 +25,10 @@ namespace Final_Combat
             }
         }
         private static Character enemy;
+        /// <summary>
+        /// Has the enemy battle the player.
+        /// </summary>
+        /// <param name="newEnemy">Enemy joining combat</param>
         public static void EnemyJoin(Character newEnemy)
         {
             if (enemy != null && !enemy.Alive)
@@ -39,14 +43,17 @@ namespace Final_Combat
         public static event EnemyJoinCombat enemyJoinedCombat = EnemyJoin;
 
         Dungeon dungeon; 
-        public Form1()
+        public FinalCombat()
         {
             
             InitializeComponent();
             dungeon = new Dungeon(map);
-            player = new Warrior(dungeon.GetFloor(0).StairsDownLocation.X, dungeon.GetFloor(0).StairsDownLocation.X+1, 10, 0, 0, 0, 0, 0, Brushes.PowderBlue);
+            player = new Warrior(dungeon.GetFloor(0).StairsDownLocation.X, dungeon.GetFloor(0).StairsDownLocation.Y+1, 10, 0, 0, 0, 0, 0, Brushes.PowderBlue);
         }
 
+        /// <summary>
+        /// Checks to see if the player is currently in combat.
+        /// </summary>
         private void CombatVisCheck()
         {
             if (enemy != null && player.Health > 0 && enemy.Health > 0)
@@ -72,6 +79,10 @@ namespace Final_Combat
             }
         }
 
+        /// <summary>
+        /// Shows/hides combat buttons, text, and enemy stats based on if the player is in combat. 
+        /// </summary>
+        /// <param name="combat">Is the player in combat</param>
         private void CombatVisibility(bool combat)
         {
             attackButton.Visible = combat;
@@ -153,6 +164,10 @@ namespace Final_Combat
             {
                 return (enemy as EWarrior).WCombatAI();
             }
+            if (enemy is Boss)
+            {
+                return (enemy as Boss).MCombatAI();
+            }
             return EInput.Defend;
         }
 
@@ -198,23 +213,34 @@ namespace Final_Combat
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            int pStrengthInput = int.Parse(textBoxSAdd.Text);
-            int pConstitutionInput = int.Parse(textBoxCAdd.Text);
-            int pDexterityInput = int.Parse(textBoxDAdd.Text);
-            int pWisdomInput = int.Parse(textBoxWAdd.Text);
+            int pStrengthInput = 0;
+            int pConstitutionInput = 0;
+            int pDexterityInput = 0;
+            int pWisdomInput = 0;
+            try
+            {
+                pStrengthInput = int.Parse(textBoxSAdd.Text);
+                pConstitutionInput = int.Parse(textBoxCAdd.Text);
+                pDexterityInput = int.Parse(textBoxDAdd.Text);
+                pWisdomInput = int.Parse(textBoxWAdd.Text);
+            }
+            catch(FormatException)
+            {
+                MessageBox.Show("Invalid input.", "Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             int pStatsInputTotal = pStrengthInput + pConstitutionInput + pDexterityInput + pWisdomInput;
             if (pStatsInputTotal == 12)
             {
                 FIGHT = new Combats();
                 FIGHT.Combat = false;
                 KeyDown += KeyPressed;
-                
+
 
                 int pStrength = 4 + pStrengthInput;
                 int pConstitution = 4 + pConstitutionInput;
                 int pDexterity = 4 + pDexterityInput;
                 int pWisdom = 4 + pWisdomInput;
-               
+
                 //SET PLAYR STATS!
                 player.Strength = pStrength;
                 player.Dexterity = pDexterity;
@@ -228,6 +254,7 @@ namespace Final_Combat
                 dungeon.GetFloor(0).AddChracter(player);
                 dungeon.RenderDungeon((int)player.PositionX, (int)player.PositionY);
             }
+            
         }
     }
 }

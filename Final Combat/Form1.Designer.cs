@@ -1,6 +1,6 @@
 ﻿namespace Final_Combat
 {
-    partial class Form1
+    partial class FinalCombat
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FinalCombat));
             this.combatText = new System.Windows.Forms.RichTextBox();
             this.attackButton = new System.Windows.Forms.Button();
             this.defendButton = new System.Windows.Forms.Button();
@@ -40,16 +41,15 @@
             this.enemyStatsLabel = new System.Windows.Forms.Label();
             this.characterCreation = new System.Windows.Forms.Panel();
             this.buttonSubmit = new System.Windows.Forms.Button();
-            this.textBoxStatExplain = new System.Windows.Forms.TextBox();
             this.textBoxWAdd = new System.Windows.Forms.TextBox();
             this.textBoxDAdd = new System.Windows.Forms.TextBox();
             this.textBoxCAdd = new System.Windows.Forms.TextBox();
             this.textBoxSAdd = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.labelW = new System.Windows.Forms.Label();
             this.labelD = new System.Windows.Forms.Label();
             this.labelC = new System.Windows.Forms.Label();
             this.labelS = new System.Windows.Forms.Label();
+            this.instructionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.map)).BeginInit();
             this.characterCreation.SuspendLayout();
             this.SuspendLayout();
@@ -171,13 +171,12 @@
             // characterCreation
             // 
             this.characterCreation.BackColor = System.Drawing.SystemColors.Window;
+            this.characterCreation.Controls.Add(this.instructionLabel);
             this.characterCreation.Controls.Add(this.buttonSubmit);
-            this.characterCreation.Controls.Add(this.textBoxStatExplain);
             this.characterCreation.Controls.Add(this.textBoxWAdd);
             this.characterCreation.Controls.Add(this.textBoxDAdd);
             this.characterCreation.Controls.Add(this.textBoxCAdd);
             this.characterCreation.Controls.Add(this.textBoxSAdd);
-            this.characterCreation.Controls.Add(this.textBox1);
             this.characterCreation.Controls.Add(this.labelW);
             this.characterCreation.Controls.Add(this.labelD);
             this.characterCreation.Controls.Add(this.labelC);
@@ -190,7 +189,7 @@
             // buttonSubmit
             // 
             this.buttonSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSubmit.Location = new System.Drawing.Point(239, 343);
+            this.buttonSubmit.Location = new System.Drawing.Point(198, 323);
             this.buttonSubmit.Name = "buttonSubmit";
             this.buttonSubmit.Size = new System.Drawing.Size(139, 59);
             this.buttonSubmit.TabIndex = 14;
@@ -198,18 +197,9 @@
             this.buttonSubmit.UseVisualStyleBackColor = true;
             this.buttonSubmit.Click += new System.EventHandler(this.buttonSubmit_Click);
             // 
-            // textBoxStatExplain
-            // 
-            this.textBoxStatExplain.Location = new System.Drawing.Point(203, 65);
-            this.textBoxStatExplain.Name = "textBoxStatExplain";
-            this.textBoxStatExplain.ReadOnly = true;
-            this.textBoxStatExplain.Size = new System.Drawing.Size(125, 20);
-            this.textBoxStatExplain.TabIndex = 13;
-            this.textBoxStatExplain.Text = "Enter values totalling 12";
-            // 
             // textBoxWAdd
             // 
-            this.textBoxWAdd.Location = new System.Drawing.Point(239, 274);
+            this.textBoxWAdd.Location = new System.Drawing.Point(316, 275);
             this.textBoxWAdd.Name = "textBoxWAdd";
             this.textBoxWAdd.Size = new System.Drawing.Size(50, 20);
             this.textBoxWAdd.TabIndex = 8;
@@ -217,7 +207,7 @@
             // 
             // textBoxDAdd
             // 
-            this.textBoxDAdd.Location = new System.Drawing.Point(239, 215);
+            this.textBoxDAdd.Location = new System.Drawing.Point(316, 230);
             this.textBoxDAdd.Name = "textBoxDAdd";
             this.textBoxDAdd.Size = new System.Drawing.Size(50, 20);
             this.textBoxDAdd.TabIndex = 7;
@@ -225,7 +215,7 @@
             // 
             // textBoxCAdd
             // 
-            this.textBoxCAdd.Location = new System.Drawing.Point(239, 155);
+            this.textBoxCAdd.Location = new System.Drawing.Point(316, 190);
             this.textBoxCAdd.Name = "textBoxCAdd";
             this.textBoxCAdd.Size = new System.Drawing.Size(50, 20);
             this.textBoxCAdd.TabIndex = 6;
@@ -233,64 +223,63 @@
             // 
             // textBoxSAdd
             // 
-            this.textBoxSAdd.Location = new System.Drawing.Point(239, 91);
+            this.textBoxSAdd.Location = new System.Drawing.Point(316, 152);
             this.textBoxSAdd.Name = "textBoxSAdd";
             this.textBoxSAdd.Size = new System.Drawing.Size(50, 20);
             this.textBoxSAdd.TabIndex = 5;
             this.textBoxSAdd.Text = "0";
             // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(188, 91);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(33, 210);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "4 + \r\n\r\n\r\n4 +\r\n\r\n\r\n4 +\r\n\r\n\r\n4 +";
-            // 
             // labelW
             // 
             this.labelW.AutoSize = true;
             this.labelW.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelW.Location = new System.Drawing.Point(64, 274);
+            this.labelW.Location = new System.Drawing.Point(173, 275);
             this.labelW.Name = "labelW";
-            this.labelW.Size = new System.Drawing.Size(66, 20);
+            this.labelW.Size = new System.Drawing.Size(128, 20);
             this.labelW.TabIndex = 3;
-            this.labelW.Text = "Wisdom";
+            this.labelW.Text = "Wisdom          4 +";
             // 
             // labelD
             // 
             this.labelD.AutoSize = true;
             this.labelD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelD.Location = new System.Drawing.Point(64, 215);
+            this.labelD.Location = new System.Drawing.Point(173, 230);
             this.labelD.Name = "labelD";
-            this.labelD.Size = new System.Drawing.Size(71, 20);
+            this.labelD.Size = new System.Drawing.Size(125, 20);
             this.labelD.TabIndex = 2;
-            this.labelD.Text = "Dexterity";
+            this.labelD.Text = "Dexterity        4 +";
             // 
             // labelC
             // 
             this.labelC.AutoSize = true;
             this.labelC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelC.Location = new System.Drawing.Point(64, 155);
+            this.labelC.Location = new System.Drawing.Point(173, 188);
             this.labelC.Name = "labelC";
-            this.labelC.Size = new System.Drawing.Size(94, 20);
+            this.labelC.Size = new System.Drawing.Size(124, 20);
             this.labelC.TabIndex = 1;
-            this.labelC.Text = "Constitution";
+            this.labelC.Text = "Constitution  4 +";
             // 
             // labelS
             // 
             this.labelS.AutoSize = true;
             this.labelS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelS.Location = new System.Drawing.Point(64, 91);
+            this.labelS.Location = new System.Drawing.Point(173, 152);
             this.labelS.Name = "labelS";
-            this.labelS.Size = new System.Drawing.Size(71, 20);
+            this.labelS.Size = new System.Drawing.Size(125, 20);
             this.labelS.TabIndex = 0;
-            this.labelS.Text = "Strength";
+            this.labelS.Text = "Strength        4 +";
             // 
-            // Form1
+            // instructionLabel
+            // 
+            this.instructionLabel.AutoSize = true;
+            this.instructionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.instructionLabel.Location = new System.Drawing.Point(153, 85);
+            this.instructionLabel.Name = "instructionLabel";
+            this.instructionLabel.Size = new System.Drawing.Size(238, 25);
+            this.instructionLabel.TabIndex = 15;
+            this.instructionLabel.Text = "Enter in values totalling 12";
+            // 
+            // FinalCombat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -307,8 +296,10 @@
             this.Controls.Add(this.defendButton);
             this.Controls.Add(this.attackButton);
             this.Controls.Add(this.combatText);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FinalCombat";
+            this.Text = "Final Combat";
             ((System.ComponentModel.ISupportInitialize)(this.map)).EndInit();
             this.characterCreation.ResumeLayout(false);
             this.characterCreation.PerformLayout();
@@ -334,13 +325,12 @@
         private System.Windows.Forms.TextBox textBoxDAdd;
         private System.Windows.Forms.TextBox textBoxCAdd;
         private System.Windows.Forms.TextBox textBoxSAdd;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label labelW;
         private System.Windows.Forms.Label labelD;
         private System.Windows.Forms.Label labelC;
         private System.Windows.Forms.Label labelS;
-        private System.Windows.Forms.TextBox textBoxStatExplain;
         private System.Windows.Forms.Button buttonSubmit;
+        private System.Windows.Forms.Label instructionLabel;
     }
 }
 

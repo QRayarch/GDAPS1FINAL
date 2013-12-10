@@ -16,7 +16,7 @@ namespace Final_Combat
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FinalCombat());
 
         }
     }

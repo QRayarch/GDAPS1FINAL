@@ -33,65 +33,20 @@ namespace Final_Combat
 
         string output = "";
 
+        /// <summary>
+        /// Performs a round of combat based on player and enemy inputs. 
+        /// </summary>
+        /// <param name="userInput">Player's input</param>
+        /// <param name="enemyInput">Enemy's input</param>
+        /// <param name="player">Player</param>
+        /// <param name="enemy">Enemy</param>
+        /// <returns></returns>
         public string Battle(EInput userInput, EInput enemyInput, Character player, Character enemy)
         {
             output = "";
-            bool pFirst = (player.Dexterity >= enemy.Dexterity);
             if (combat == true)
             {
-                if (pFirst == true)
-                {
-                    if (player.Health > 0)
-                    {
-                        int playerOut = player.Combat(userInput, enemy);
-
-                        if (userInput == EInput.Potion)
-                            output = output + "\nYou heal for " + playerOut + ".";
-                        else if (userInput == EInput.Defend)
-                            output = output + "\nYou defend for " + playerOut + ".";
-                        else
-                            output = output + "\nYou deal " + playerOut + " damage.";
-                    }
-                    else
-                        combat = false;
-
-                    if (enemy.Health > 0)
-                    {
-                        int enemyOut = enemy.Combat(enemyInput, player);
-
-                        if (enemyInput == EInput.Potion)
-                            output = output + "\nThey heal for " + enemyOut + ".";
-                        else
-                            output = output + "\nThey deal " + enemyOut + " damage.";
-                    }
-                    else
-                        combat = false;
-                }
-
-                else
-                {
-                    int enemyOut = enemy.Combat(userInput, enemy);//WHAT? but works?
-
-                    if (enemyInput == EInput.Potion)
-                        output = output + "\nThey heal for " + enemyOut + ".";
-                    else if (enemyInput == EInput.Defend)
-                        output = output + "\nThey defend for " + enemyOut + ".";
-                    else
-                        output = output + "\nThey deal " + enemyOut + " damage.";
-
-                    if (player.Health > 0)
-                    {
-                        int playerOut = player.Combat(enemyInput, enemy);
-                        if (userInput == EInput.Potion)
-                            output = output + "\nYou heal for " + playerOut + ".";
-                        else if (userInput == EInput.Defend)
-                            output = output + "\nYou defend for " + playerOut + ".";
-                        else
-                            output = output + "\nYou deal " + playerOut + " damage.";
-                    }
-                    else
-                        combat = false;
-                }
+                BattleAction(userInput, enemyInput, player, enemy);
             }
 
             if ((player.Health > 0) == true && (enemy.Health > 0) == false)
@@ -101,6 +56,55 @@ namespace Final_Combat
             }
             else if ((player.Health > 0) == false)
                 output = output + "\n You have died!";
+            return output;
+        }
+
+        /// <summary>
+        /// Executes player and enemy actions.
+        /// </summary>
+        /// <param name="firstInput">Player action</param>
+        /// <param name="secondInput">Enemy action</param>
+        /// <param name="first">Player</param>
+        /// <param name="second">Enemy</param>
+        /// <returns></returns>
+        public string BattleAction(EInput firstInput, EInput secondInput, Character first, Character second)
+        {
+            string whoFirst = "You ";
+            string whoSecond = "They ";
+            Console.WriteLine(first.Dexterity + "\n" + second.Dexterity);
+            if (first.Dexterity > second.Dexterity)
+            {
+                whoFirst = "They ";
+                Console.WriteLine("swap");
+                whoSecond = "You ";
+            }
+            if (first.Health > 0)
+            {
+                int firstOut = first.Combat(firstInput, second);
+
+                if (firstInput == EInput.Potion)
+                    output = output + "\n" + whoFirst + "heal for " + firstOut + ".";
+                else if (firstInput == EInput.Defend)
+                    output = output + "\n" + whoFirst + "defend for " + firstOut + ".";
+                else
+                    output = output + "\n" + whoFirst + "deal " + firstOut + " damage.";
+            }
+            else
+                combat = false;
+
+            if (second.Health > 0)
+            {
+                int secondOut = second.Combat(secondInput, first);
+
+                if (secondInput == EInput.Potion)
+                    output = output + "\n" + whoSecond + "heal for " + secondOut + ".";
+                else if (secondInput == EInput.Defend)
+                    output = output + "\n" + whoSecond + "defend for " + secondOut + ".";
+                else
+                    output = output + "\n" + whoSecond + "deal " + secondOut + " damage.";
+            }
+            else
+                combat = false;
             return output;
         }
     }

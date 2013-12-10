@@ -29,14 +29,14 @@ namespace Final_Combat
         //simulates attacking
         public override int Attack()
         {
-            damage = strength + randRoll.Next(1, 11);
-            return damage;
+            return strength + randRoll.Next(1, 11);
+            
         }
         //simulates magic
         public override int Magic()
         {
-            damage = wisdom + randRoll.Next(1, 5);
-            return damage;
+            return wisdom + randRoll.Next(1, 5);
+            
         }
         /// <summary>
         /// simulates defence
@@ -58,40 +58,5 @@ namespace Final_Combat
             health = health + healing;
             return healing;
         }
-        //Calls methods to activate the user's choice during battle
-        //public override int Combat(EInput input, Character attacker, Character defender)
-        //{
-        //    int output = 0;
-        //    switch (input)
-        //    {
-        //        case EInput.Attack:
-        //            output = attacker.Attack();
-        //            if (defender.Defense < output)
-        //            {
-        //                defender.Defense = 0;
-        //                defender.Health -= Math.Max((output - defender.Defense), 0);
-        //            }
-        //            else
-        //                defender.Defense -= output;
-        //            break;
-        //        case EInput.Defend:
-        //            output = attacker.Defend();
-        //            break;
-        //        case EInput.Magic:
-        //            output = attacker.Magic();
-        //            if (defender.Defense < output)
-        //            {
-        //                defender.Defense = 0;
-        //                defender.Health -= Math.Max((output - defender.Defense), 0);
-        //            }
-        //            else
-        //                defender.Defense -= output;
-        //            break;
-        //        case EInput.Potion: 
-        //            output = attacker.Potion();
-        //            break;
-        //    }
-        //    return output;
-        //} 
     }
 }

@@ -35,7 +35,7 @@ namespace Final_Combat
            }
        }
 
-       protected int damage;
+       //protected int damage;
        //random used throughout the game
        static protected Random randRoll = new Random();
        
@@ -124,7 +124,6 @@ namespace Final_Combat
        public int Combat(EInput input, Character defender)
        {
            int output = 0;
-           Console.WriteLine((this == defender));
            switch (input)
            {
                case EInput.Attack:
@@ -161,7 +160,7 @@ namespace Final_Combat
        {
            if (isEnemy)
            {
-               Movement((int)(Form1.Player.PositionX), (int)(Form1.Player.PositionY));
+               Movement((int)(FinalCombat.Player.PositionX), (int)(FinalCombat.Player.PositionY));
            }
            //moves them around with their velocity
            positionX = positionX + velocityX;

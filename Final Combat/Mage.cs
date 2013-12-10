@@ -12,7 +12,7 @@ namespace Final_Combat
     {   //passes in variables and sets _positionX and _positionY
         public Mage(int _positionX, int _positionY, int _health, int _strength, int _constitution,
            int _dexterity, int _wisdom, int _defense, Brush color)
-           : this (_positionX, _positionY, color)
+            : base(_positionX, _positionY, _health, _strength, _constitution, _dexterity, _wisdom, _defense, 'M', color)
        {
        }
        /// <summary>
@@ -21,7 +21,7 @@ namespace Final_Combat
        /// <param name="_positionX">X coordinate of player's position</param>
        /// <param name="_positionY">Y coordinate of player's position</param>
        public Mage(int _positionX, int _positionY, Brush color)
-           : base (_positionX, _positionY, 10, 7, 6, 9, 5, 0, 'M', color)
+           : base (_positionX, _positionY, 15, 4, 6, 9, 10, 0, 'M', color)
        {
        }
 
@@ -32,14 +32,12 @@ namespace Final_Combat
        //simulates attacking
        public override int Attack()
        {
-           damage = strength + randRoll.Next(1, 5);
-           return damage;
+           return strength + randRoll.Next(1, 5);
        }
        //simulates magic
        public override int Magic()
        {
-           damage = wisdom + randRoll.Next(1, 11);
-           return damage;
+           return wisdom + randRoll.Next(1, 11);
        }
        /// <summary>
        /// simulates defence
@@ -60,7 +58,5 @@ namespace Final_Combat
            health = health + randRoll.Next(1, 9);
            return health;
        }
-       // Allows user to make a choice during combat
-       
     }
 }

@@ -31,6 +31,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -91,6 +95,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CharacterCreation.csproj" />
+    <Content Include="Iconshock-Mortal-Kombat-Mortal-kombat-1.ico" />
+    <Content Include="RIT.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

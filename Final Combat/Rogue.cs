@@ -20,7 +20,7 @@ namespace Final_Combat
         /// <param name="_positionX">X coordinate of player's position</param>
         /// <param name="_positionY">Y coordinate of player's position</param>
         public Rogue(int _positionX, int _positionY, Brush color)
-            : base(_positionX, _positionY, 9, 6, 7, 10, 7, 0, 'R', color)
+            : base(_positionX, _positionY, 18, 6, 7, 10, 7, 0, 'R', color)
         {
         }
 
@@ -32,14 +32,12 @@ namespace Final_Combat
         //simulates attacking
         public override int Attack()
         {
-            damage = strength + randRoll.Next(1, 7);
-            return damage;
+            return strength + randRoll.Next(1, 7);
         }
         //simulates magic
         public override int Magic()
         {
-            damage = wisdom + randRoll.Next(1, 7);
-            return damage;
+            return wisdom + randRoll.Next(1, 7);
         }
         /// <summary>
         /// simulates defence

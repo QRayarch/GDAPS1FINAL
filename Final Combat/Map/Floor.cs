@@ -130,7 +130,7 @@ namespace RougeMap.MapStuff
         /// </summary>
         private void GenerateEnemies()
         {
-            for (int e = 0; e < 2 + Dungeon.FloorsVisited/3 + random.Next(0, Dungeon.FloorsVisited); e++)
+            for (int e = 0; e < 4 + Dungeon.FloorsVisited/2 + random.Next(0, Dungeon.FloorsVisited); e++)
             {
                 GenerateEnemyInRoom(rooms[random.Next(0, rooms.Count)]);
             }
@@ -149,7 +149,14 @@ namespace RougeMap.MapStuff
                 switch (random.Next(0, 3))
                 {
                     case 0:
-                        AddChracter(new EMage(x, y));
+                        if (random.Next(0, 40) == 0)
+                        {
+                            AddChracter(new Boss(x, y));
+                        }
+                        else
+                        {
+                            AddChracter(new EMage(x, y));
+                        }
                         break;
                     case 1:
                         AddChracter(new ERogue(x, y));
@@ -300,11 +307,11 @@ namespace RougeMap.MapStuff
                             {
                                 tmpCharacter.PositionX = x;
                                 tmpCharacter.PositionY = y;
-                                if (tmpCharacter.IsEnemy && characters[newPositionX, newPositionY] == Form1.Player)
+                                if (tmpCharacter.IsEnemy && characters[newPositionX, newPositionY] == FinalCombat.Player)
                                 {
-                                    Form1.EnemyJoin(tmpCharacter);
+                                    FinalCombat.EnemyJoin(tmpCharacter);
                                 }
-                                else if(tmpCharacter == Form1.Player)
+                                else if(tmpCharacter == FinalCombat.Player)
                                 {
                                     if (tiles[newPositionX, newPositionY].CharToDisplay == 'u')
                                     {

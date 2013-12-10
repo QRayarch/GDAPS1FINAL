@@ -79,7 +79,6 @@ namespace RougeMap.MapStuff
             }
             else
             {
-                Console.WriteLine(currentFloor);
                 floorTravelingTo = floors[currentFloor];
             }
             MovePlayerToFloor(floorTravelingTo.StairsDownLocation, floorTravelingTo, player);
@@ -102,7 +101,6 @@ namespace RougeMap.MapStuff
             }
             else
             {
-                Console.WriteLine(currentFloor);
                 floorTravelingTo = floors[currentFloor];
             }
             MovePlayerToFloor(floorTravelingTo.StairsUpLocation, floorTravelingTo, player);

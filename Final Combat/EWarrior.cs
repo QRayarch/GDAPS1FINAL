@@ -8,27 +8,26 @@ using System.Threading.Tasks;
 namespace Final_Combat
 {
     class EWarrior : Warrior
+    {
         /// <summary>
         /// sets values to variables 
         /// </summary>
         /// <param name="_positionX">X coordinate of player's position</param>
         /// <param name="_positionY">Y coordinate of player's position</param>
         public EWarrior(int _positionX, int _positionY)
-            : base(_positionX, _positionY, 30, 4, 4, 4, 4, 4, Brushes.PeachPuff)
+            : base(_positionX, _positionY, 30, 8, 5, 5, 3, 4, Brushes.PeachPuff)
         {
             isEnemy = true;
         }
         //simulates attacking
         public override int Attack()
         {
-            damage = strength + randRoll.Next(1, 11);
-            return damage;
+            return strength + randRoll.Next(1, 11);
         }
         //simulates magic
         public override int Magic()
         {
-            damage = wisdom + randRoll.Next(1, 5);
-            return damage;
+            return wisdom + randRoll.Next(1, 5);
         }
         /// <summary>
         /// simulates defence
@@ -60,13 +59,5 @@ namespace Final_Combat
             }
             return enemyAction;
         }
-        /// <summary>
-        ///Calls methods to activate the user's choice during battle
-        /// </summary>
-        /// <param name="input">the decision made by the enemy in the ai method</param>
-        /// <param name="attacker">the enemy</param>
-        /// <param name="defender">the player</param>
-        /// <returns></returns>
-        
     }
 }

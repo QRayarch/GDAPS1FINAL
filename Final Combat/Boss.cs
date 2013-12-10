@@ -15,21 +15,19 @@ namespace Final_Combat
         /// <param name="_positionX">X coordinate of player's position</param>
         /// <param name="_positionY">Y coordinate of player's position</param>
         public Boss(int _positionX, int _positionY)
-            : base(_positionX, _positionY, 10, 7, 6, 9, 5, 0, Brushes.LavenderBlush)
+            : base(_positionX, _positionY, 100, 15, 15, 15, 15, 5, Brushes.CornflowerBlue)
         {
             isEnemy = true;
         }
         //simulates attacking
         public override int Attack()
         {
-            damage = strength + randRoll.Next(1, 5);
-            return damage;
+            return strength + randRoll.Next(1, 5);
         }
         //simulates magic
         public override int Magic()
         {
-            damage = wisdom + randRoll.Next(1, 11);
-            return damage;
+            return wisdom + randRoll.Next(1, 11);
         }
         /// <summary>
         /// simulates defence
@@ -76,13 +74,5 @@ namespace Final_Combat
             }
             return enemyAction;
         }
-        /// <summary>
-        ///Calls methods to activate the user's choice during battle
-        /// </summary>
-        /// <param name="input">the decision made by the enemy in the ai method</param>
-        /// <param name="attacker">the enemy</param>
-        /// <param name="defender">the player</param>
-        /// <returns></returns>
-        
     }
 }
